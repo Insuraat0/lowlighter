@@ -12,14 +12,12 @@ import {
     showHighlight,
     toggleHighlighterCursor,
 } from './actions/index.js';
-import { trackEvent } from './analytics.js';
 import { wrapResponse } from './utils.js';
 
 
 function initialize() {
     initializeContextMenus();
     initializeContextMenuEventListeners();
-    initializeExtensionEventListeners();
     initializeTabEventListeners();
     initializeKeyboardShortcutEventListeners();
     initializeMessageEventListeners();
@@ -50,31 +48,18 @@ function initializeContextMenus() {
 function initializeContextMenuEventListeners() {
     chrome.contextMenus.onClicked.addListener(({ menuItemId, parentMenuItemId }) => {
         if (parentMenuItemId === 'highlight-colors') {
-            trackEvent('color-change-source', 'context-menu');
             changeColor(menuItemId);
             return;
         }
 
         switch (menuItemId) {
             case 'highlight':
-                trackEvent('highlight-source', 'context-menu');
                 highlightText();
                 break;
             case 'toggle-cursor':
-                trackEvent('toggle-cursor-source', 'context-menu');
                 toggleHighlighterCursor();
                 break;
         }
-    });
-}
-
-function initializeExtensionEventListeners() {
-    // Analytics (non-interactive events)
-    chrome.runtime.onInstalled.addListener(() => {
-        trackEvent('extension', 'installed', chrome.runtime.getManifest().version, null, { ni: 1 });
-    });
-    chrome.runtime.onStartup.addListener(() => {
-        trackEvent('extension', 'startup', null, null, { ni: 1 });
     });
 }
 
@@ -95,31 +80,24 @@ function initializeKeyboardShortcutEventListeners() {
     chrome.commands.onCommand.addListener((command) => {
         switch (command) {
             case 'execute-highlight':
-                trackEvent('highlight-source', 'keyboard-shortcut');
                 highlightText();
                 break;
             case 'toggle-highlighter-cursor':
-                trackEvent('toggle-cursor-source', 'keyboard-shortcut');
                 toggleHighlighterCursor();
                 break;
             case 'change-color-to-yellow':
-                trackEvent('color-change-source', 'keyboard-shortcut');
                 changeColor('yellow');
                 break;
             case 'change-color-to-cyan':
-                trackEvent('color-change-source', 'keyboard-shortcut');
                 changeColor('blue');
                 break;
             case 'change-color-to-lime':
-                trackEvent('color-change-source', 'keyboard-shortcut');
                 changeColor('green');
                 break;
             case 'change-color-to-magenta':
-                trackEvent('color-change-source', 'keyboard-shortcut');
                 changeColor('pink');
                 break;
             case 'change-color-to-dark':
-                trackEvent('color-change-source', 'keyboard-shortcut');
                 changeColor('dark');
                 break;
         }
@@ -134,11 +112,7 @@ function initializeMessageEventListeners() {
 
         switch (request.action) {
             case 'highlight':
-                trackEvent('highlight-source', 'highlighter-cursor');
                 highlightText();
-                return;
-            case 'track-event':
-                trackEvent(request.trackCategory, request.trackAction);
                 return;
             case 'remove-highlights':
                 removeHighlights();
@@ -147,14 +121,12 @@ function initializeMessageEventListeners() {
                 removeHighlight(request.highlightId);
                 return;
             case 'change-color':
-                trackEvent('color-change-source', request.source);
                 changeColor(request.color);
                 return;
             case 'edit-color':
                 editColor(request.colorTitle, request.color, request.textColor);
                 return;
             case 'toggle-highlighter-cursor':
-                trackEvent('toggle-cursor-source', request.source);
                 toggleHighlighterCursor();
                 return;
             case 'get-highlights':

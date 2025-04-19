@@ -42,7 +42,6 @@ function toggleHighlighterCursor() {
 }
 
 function copyHighlights() {
-    chrome.runtime.sendMessage({ action: 'track-event', trackCategory: 'highlight-action', trackAction: 'copy-all' });
     navigator.clipboard.writeText(highlightsListElement.innerText);
 
     // Let the user know the copy went through
@@ -200,6 +199,3 @@ shortcutLinkElement.addEventListener('click', () => { // Open the shortcuts Chro
 });
 
 closeButton.addEventListener('click', () => window.close());
-
-// Register (in analytics) that the popup was opened
-chrome.runtime.sendMessage({ action: 'track-event', trackCategory: 'popup', trackAction: 'opened' });

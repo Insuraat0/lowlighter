@@ -10,7 +10,6 @@ globals:
   __dirname: readonly
 ignorePatterns:
   - lib/*
-  - config/*
   - "*.config.js"
   - tmp/*
 parserOptions:

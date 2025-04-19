@@ -144,7 +144,6 @@ function onCopyBtnClicked() {
     const highlights = document.querySelectorAll(`.${HIGHLIGHT_CLASS}[data-highlight-id='${highlightId}']`);
     const highlightText = Array.from(highlights).map((el) => el.textContent.replace(/\s+/ugm, ' ')).join(''); // clean up whitespace
     navigator.clipboard.writeText(highlightText);
-    chrome.runtime.sendMessage({ action: 'track-event', trackCategory: 'highlight-action', trackAction: 'copy' });
 }
 
 function onDeleteBtnClicked() {
@@ -153,7 +152,6 @@ function onDeleteBtnClicked() {
 
     getHoverToolEl()?.hide();
     hoverToolTimeout = null;
-    chrome.runtime.sendMessage({ action: 'track-event', trackCategory: 'highlight-action', trackAction: 'delete' });
 }
 
 
@@ -161,7 +159,6 @@ function onDeleteBtnClicked() {
 function onChangeColorBtnClicked() {
     const highlightId = currentHighlightEl.getAttribute('data-highlight-id');
     updateHighlightColor(highlightId);
-    chrome.runtime.sendMessage({ action: 'track-event', trackCategory: 'highlight-action', trackAction: 'change-color' });
 }
 
 export {
