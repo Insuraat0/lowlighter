@@ -33,11 +33,11 @@ function initializeContextMenus() {
         chrome.contextMenus.create({ title: 'Highlight', id: 'highlight', contexts: ['selection'] });
         chrome.contextMenus.create({ title: 'Toggle Cursor', id: 'toggle-cursor' });
         chrome.contextMenus.create({ title: 'Highlighter color', id: 'highlight-colors' });
-        chrome.contextMenus.create({ title: 'Yellow', id: 'yellow', parentId: 'highlight-colors', type: 'radio' });
-        chrome.contextMenus.create({ title: 'Blue', id: 'blue', parentId: 'highlight-colors', type: 'radio' });
-        chrome.contextMenus.create({ title: 'Green', id: 'green', parentId: 'highlight-colors', type: 'radio' });
-        chrome.contextMenus.create({ title: 'Pink', id: 'pink', parentId: 'highlight-colors', type: 'radio' });
-        chrome.contextMenus.create({ title: "Dark", id: "dark", parentId: "highlight-colors", type: "radio" });
+
+		const colorOptions = await getColorOptions();
+		colorOptions.forEach((colorOption) => {
+        	chrome.contextMenus.create({ title: colorOption['title'], id: colorOption['title'], parentId: 'highlight-colors', type: 'radio' });
+		});
 
         // Get the initial selected color value
         const { title: colorTitle } = await getCurrentColor();
@@ -85,20 +85,35 @@ function initializeKeyboardShortcutEventListeners() {
             case 'toggle-highlighter-cursor':
                 toggleHighlighterCursor();
                 break;
-            case 'change-color-to-yellow':
-                changeColor('yellow');
+            case 'change-color-to-color0':
+                changeColor('color0');
                 break;
-            case 'change-color-to-cyan':
-                changeColor('blue');
+            case 'change-color-to-color1':
+                changeColor('color1');
                 break;
-            case 'change-color-to-lime':
-                changeColor('green');
+            case 'change-color-to-color2':
+                changeColor('color2');
                 break;
-            case 'change-color-to-magenta':
-                changeColor('pink');
+            case 'change-color-to-color3':
+                changeColor('color3');
                 break;
-            case 'change-color-to-dark':
-                changeColor('dark');
+            case 'change-color-to-color4':
+                changeColor('color4');
+                break;
+            case 'change-color-to-color5':
+                changeColor('color5');
+                break;
+            case 'change-color-to-color6':
+                changeColor('color6');
+                break;
+            case 'change-color-to-color7':
+                changeColor('color7');
+                break;
+            case 'change-color-to-color8':
+                changeColor('color8');
+                break;
+            case 'change-color-to-color9':
+                changeColor('color9');
                 break;
         }
     });

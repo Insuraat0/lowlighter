@@ -4,8 +4,8 @@ import { initializeHighlightEventListeners } from '../../hoverTools/index.js';
 
 function highlight(selString, container, selection, color, textColor, highlightIndex) {
     const highlightInfo = {
-        color: color ? color : "yellow",
-        textColor: textColor ? textColor : "inherit",
+        color: color ? color : "rgb(255, 222, 112)",
+        textColor: textColor ? textColor : "rgb(0, 0, 0)",
         highlightIndex: highlightIndex,
         selectionString: selString,
         anchor: $(selection.anchorNode),

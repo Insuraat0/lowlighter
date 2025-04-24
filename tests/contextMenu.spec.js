@@ -57,7 +57,7 @@ test.describe('context menu actions', () => {
 
       await page.bringToFront();
       await popupPage.evaluate(() => {
-        chrome.runtime.sendMessage({ action: 'change-color', color: 'blue' });
+        chrome.runtime.sendMessage({ action: 'change-color', color: 'color1' });
       });
 
       await highlightText(page, popupPage, 'Paragraph 1');

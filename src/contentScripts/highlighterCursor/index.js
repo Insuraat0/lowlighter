@@ -24,7 +24,7 @@ function toggleHighlighterCursor() {
         // Highlight right away if some text is already selected:
         highlightOnSelection();
     } else {
-        document.body.style.cursor = 'default';
+        document.body.style.cursor = 'unset';
     }
 }
 

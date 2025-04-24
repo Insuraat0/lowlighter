@@ -1,10 +1,10 @@
 {
-  "name": "highlighter",
-  "version": "4.0.5",
-  "description": "Chrome extension to highlight text on websites with a simple right-click or keyboard shortcut. Saves highlights on your device.",
-  "repository": "github:jeromepl/highlighter",
+  "name": "lowlighter",
+  "version": "0.1.0",
+  "description": "Lowlighter is a free, customizable, and fully offline highlighter for research and productivity.",
+  "repository": "github:Insuraat0/lowlighter",
   "main": "manifest.json",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "archiver": "^5.3.0",

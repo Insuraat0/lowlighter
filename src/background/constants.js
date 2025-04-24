@@ -1,24 +1,28 @@
-export const DEFAULT_COLOR_TITLE = "yellow";
+export const DEFAULT_COLOR_TITLE = "color0";
 export const DEFAULT_COLORS = [
     {
-        title: 'yellow',
-        color: 'rgb(255, 246, 21)',
+        title: 'color0',
+        color: 'rgb(255, 222, 112)', // Orange
+        textColor: 'rgb(0, 0, 0)',
     },
     {
-        title: 'green',
-        color: 'rgb(68, 255, 147)',
-    },
-    {
-        title: 'blue',
-        color: 'rgb(66, 229, 255)',
-    },
-    {
-        title: 'pink',
-        color: 'rgb(244, 151, 255)',
-    },
-    {
-        title: 'dark',
-        color: 'rgb(52, 73, 94)',
+        title: 'color1',
+        color: 'rgb(52, 73, 94)', // Dark
         textColor: 'rgb(255, 255, 255)',
     },
+    /*{
+        title: 'color2',
+        color: 'rgb(255, 202, 215)', // Pink
+        textColor: 'rgb(0, 0, 0)',
+    },
+    {
+        title: 'color3',
+        color: 'rgb(255, 246, 21)', // Yellow
+        textColor: 'rgb(0, 0, 0)',
+    },
+	{
+		title: 'color4',
+		color: 'rgb(180, 255, 235)',
+		textColor: 'rgb(0, 0, 0)',
+	},*/
 ];

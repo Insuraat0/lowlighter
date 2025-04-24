@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Highlighter",
-    "description": "Highlight text on websites with a simple right-click or keyboard shortcut. Saves highlights on your device.",
-    "version": "4.0.5",
+    "name": "Lowlighter",
+    "description": "Lowlighter is a free, customizable, and fully offline highlighter for research and productivity.",
+    "version": "0.1.0",
     "icons": {
         "16": "images/16.png",
         "48": "images/48.png",
@@ -38,28 +38,47 @@
     "commands": {
         "execute-highlight": {
             "suggested_key": {
-                "default": "Alt+H",
-                "mac": "MacCtrl+H"
+                "default": "Alt+S",
+                "mac": "MacCtrl+S"
             },
             "description": "Highlight selected text"
         },
         "toggle-highlighter-cursor": {
-            "description": "Toggle the highlighter cursor"
+           "suggested_key": {
+                "default": "Alt+Shift+S",
+                "mac": "MacCtrl+Shift+S"
+            },
+			"description": "Toggle the highlighter cursor"
         },
-        "change-color-to-yellow": {
-            "description": "Change highlighter color to yellow"
+        "change-color-to-color0": {
+            "description": "Change highlighter color to your defined color '0'"
         },
-        "change-color-to-cyan": {
-            "description": "Change highlighter color to blue"
+        "change-color-to-color1": {
+            "description": "Change highlighter color to your defined color '1'"
         },
-        "change-color-to-lime": {
-            "description": "Change highlighter color to green"
+        "change-color-to-color2": {
+            "description": "Change highlighter color to your defined color '2'"
         },
-        "change-color-to-magenta": {
-            "description": "Change highlighter color to pink"
+        "change-color-to-color3": {
+            "description": "Change highlighter color to your defined color '3'"
         },
-        "change-color-to-dark": {
-            "description": "Change highlighter color to dark"
+        "change-color-to-color4": {
+            "description": "Change highlighter color to your defined color '4'"
+        },
+        "change-color-to-color5": {
+            "description": "Change highlighter color to your defined color '5'"
+        },
+        "change-color-to-color6": {
+            "description": "Change highlighter color to your defined color '6'"
+        },
+        "change-color-to-color7": {
+            "description": "Change highlighter color to your defined color '7'"
+        },
+        "change-color-to-color8": {
+            "description": "Change highlighter color to your defined color '8'"
+        },
+        "change-color-to-color9": {
+            "description": "Change highlighter color to your defined color '9'"
         }
     },
     "permissions": [
