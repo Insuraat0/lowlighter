@@ -8,15 +8,15 @@ Install the extension from the web stores listed below or from the releases page
 [Highlighter extension](https://github.com/jeromepl/highlighter/) - [Jérôme Parent-Lévesque](https://www.linkedin.com/in/jeromepl), Expat License (The license's terms are complied with in the NOTICE file)
 
 ## Roadmap
-[ ] Functional web highlighter that does not connect to the internet
-[ ] Support for up to ten customizable colors in intuative popup menu
-[ ] Keyboard shortcuts for all possible actions
-[ ] Organized dashboard page with highlight management options
-[ ] Folders for organizing research projects and seperate color labels per folder
-[ ] Reworked icons to better fit new project theme
-[ ] Testing for Firefox
-[ ] Support for highlighting on PDF files
-[ ] Inline notes option to display notes without opening dashboard
-[ ] Pemenant sidebar with folder and citation management
-[ ] Online support with Google/Firefox sync
+- [x] Functional web highlighter that does not connect to the internet
+- [ ] Support for up to ten customizable colors in intuative popup menu
+- [ ] Keyboard shortcuts for all possible actions
+- [ ] Organized dashboard page with highlight management options
+- [ ] Folders for organizing research projects and seperate color labels per folder
+- [ ] Reworked icons to better fit new project theme
+- [ ] Testing for Firefox
+- [ ] Support for highlighting on PDF files
+- [ ] Inline notes option to display notes without opening dashboard
+- [ ] Pemenant sidebar with folder and citation management
+- [ ] Online support with Google/Firefox sync
 
