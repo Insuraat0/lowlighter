@@ -22,7 +22,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "lib/jquery-2.1.3.min.js",
+                "src/assets/lib/jquery-2.1.3.min.js",
                 "contentScript.js"
             ],
             "css": [
