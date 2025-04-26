@@ -11,9 +11,9 @@ const modal = document.getElementById('change-color-modal');
 
 async function open() {
     const colorOption = await getFromBackgroundPage({ action: 'get-current-color' });
-    const { title, color, textColor } = colorOption;
+    const { colorId, color, textColor } = colorOption;
 
-    colorTitleElement.innerText = title;
+    colorTitleElement.innerText = colorId;
     textColorFieldSet.disabled = !textColor;
     useTextColorCheckbox.checked = Boolean(textColor);
     highlightColorField.value = rgbToHex(color);
@@ -35,11 +35,11 @@ function confirm(e) {
     e.preventDefault();
 
     const data = new FormData(e.target);
-    const colorTitle = colorTitleElement.innerText;
+    const colorId = colorTitleElement.innerText;
     const color = hexToRgb(data.get('highlight-color'));
     const textColor = hexToRgb(data.get('text-color'));
 
-    chrome.runtime.sendMessage({ action: 'edit-color', colorTitle, color, textColor });
+    chrome.runtime.sendMessage({ action: 'edit-color', colorId, color, textColor });
     location.reload(); // Force a refresh of the colors list in the popup
 }
 

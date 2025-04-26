@@ -21,20 +21,20 @@ const highlightsListLostTitleElement = document.getElementById('highlights-list-
 
 function colorChanged(colorOption) {
     const { backgroundColor, borderColor } = colorOption.style;
-    const { colorTitle } = colorOption.dataset;
+    const { colorId } = colorOption.dataset;
 
     // Swap (in the UI) the previous selected color and the newly selected one
     const { backgroundColor: previousBackgroundColor, borderColor: previousBorderColor } = selectedColorElement.style;
-    const { colorTitle: previousColorTitle } = selectedColorElement.dataset;
+    const { colorId: previousColorId } = selectedColorElement.dataset;
     colorOption.style.backgroundColor = previousBackgroundColor;
     colorOption.style.borderColor = previousBorderColor;
-    colorOption.dataset.colorTitle = previousColorTitle;
+    colorOption.dataset.colorId = previousColorId;
     selectedColorElement.style.backgroundColor = backgroundColor;
     selectedColorElement.style.borderColor = borderColor;
-    selectedColorElement.dataset.colorTitle = colorTitle;
+    selectedColorElement.dataset.colorId = colorId;
 
     // Change the global highlighter color
-    chrome.runtime.sendMessage({ action: 'change-color', color: colorTitle, source: 'popup' });
+    chrome.runtime.sendMessage({ action: 'change-color', color: colorId, source: 'popup' });
 }
 
 function toggleHighlighterCursor() {
@@ -126,12 +126,12 @@ function showErrorState() {
     const colorOptions = await getFromBackgroundPage({ action: 'get-color-options' });
 
     colorOptions.forEach((colorOption) => {
-        const colorTitle = colorOption.title;
-        const selected = colorTitle === color.title;
+        const colorId = colorOption.id;
+        const selected = colorId === color.id;
         const colorOptionElement = selected ? selectedColorElement : document.createElement('div');
 
         colorOptionElement.classList.add('color');
-        colorOptionElement.dataset.colorTitle = colorTitle;
+        colorOptionElement.dataset.colorId = colorId;
         colorOptionElement.style.backgroundColor = colorOption.color;
         if (colorOption.textColor) colorOptionElement.style.borderColor = colorOption.textColor;
 

@@ -1,8 +1,8 @@
 import getColorOptions from './getColorOptions.js';
 
-async function editColor(colorTitle, color, textColor) {
+async function editColor(colorId, color, textColor) {
     const colorOptions = await getColorOptions();
-    const colorOption = colorOptions.find((option) => option.title === colorTitle);
+    const colorOption = colorOptions.find((option) => option.id === colorId);
     colorOption.color = color;
     colorOption.textColor = textColor;
 

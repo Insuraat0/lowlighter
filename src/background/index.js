@@ -36,12 +36,12 @@ function initializeContextMenus() {
 
 		const colorOptions = await getColorOptions();
 		colorOptions.forEach((colorOption) => {
-        	chrome.contextMenus.create({ title: colorOption['title'], id: colorOption['title'], parentId: 'highlight-colors', type: 'radio' });
+        	chrome.contextMenus.create({ title: colorOption.name, id: colorOption.id, parentId: 'highlight-colors', type: 'radio' });
 		});
 
         // Get the initial selected color value
-        const { title: colorTitle } = await getCurrentColor();
-        chrome.contextMenus.update(colorTitle, { checked: true });
+        const { id: colorId } = await getCurrentColor();
+        chrome.contextMenus.update(colorId, { checked: true });
     });
 }
 
@@ -139,7 +139,7 @@ function initializeMessageEventListeners() {
                 changeColor(request.color);
                 return;
             case 'edit-color':
-                editColor(request.colorTitle, request.color, request.textColor);
+                editColor(request.colorId, request.color, request.textColor);
                 return;
             case 'toggle-highlighter-cursor':
                 toggleHighlighterCursor();
