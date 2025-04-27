@@ -11,9 +11,10 @@ function close() {
     modal.style.display = 'none';
 }
 
-function confirm() {
+async function confirm() {
     // Closing the window here also allows automatic refreshing of the highlight list
-    chrome.runtime.sendMessage({ action: 'remove-highlights' }, () => window.close());
+    await chrome.runtime.sendMessage({ action: 'remove-highlights' });
+    window.close();
 }
 
 // Remove All and its confirmation modal:

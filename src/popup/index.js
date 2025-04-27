@@ -37,8 +37,9 @@ function colorChanged(colorOption) {
     chrome.runtime.sendMessage({ action: 'change-color', color: colorId, source: 'popup' });
 }
 
-function toggleHighlighterCursor() {
-    chrome.runtime.sendMessage({ action: 'toggle-highlighter-cursor', source: 'popup' }, () => window.close());
+async function toggleHighlighterCursor() {
+    await chrome.runtime.sendMessage({ action: 'toggle-highlighter-cursor', source: 'popup' });
+    window.close();
 }
 
 function copyHighlights() {
@@ -146,7 +147,7 @@ function showErrorState() {
 (async function initializeShortcutLinkText() {
     const commands = await chrome.commands.getAll();
     commands.forEach((command) => {
-        if (command.name === 'execute-highlight') {
+        if (command.name === 'a-execute-highlight') {
             if (command.shortcut) {
                 shortcutLinkTextElement.textContent = command.shortcut;
             } else {

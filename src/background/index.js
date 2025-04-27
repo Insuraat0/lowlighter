@@ -79,10 +79,10 @@ function initializeKeyboardShortcutEventListeners() {
     // Add Keyboard shortcuts
     chrome.commands.onCommand.addListener((command) => {
         switch (command) {
-            case 'execute-highlight':
+            case 'a-execute-highlight':
                 highlightText();
                 break;
-            case 'toggle-highlighter-cursor':
+            case 'b-toggle-highlighter-cursor':
                 toggleHighlighterCursor();
                 break;
             case 'change-color-to-color0':

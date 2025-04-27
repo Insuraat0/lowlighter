@@ -36,14 +36,14 @@
         "type": "module"
     },
     "commands": {
-        "execute-highlight": {
+        "a-execute-highlight": {
             "suggested_key": {
                 "default": "Alt+S",
                 "mac": "MacCtrl+S"
             },
             "description": "Highlight selected text"
         },
-        "toggle-highlighter-cursor": {
+        "b-toggle-highlighter-cursor": {
            "suggested_key": {
                 "default": "Alt+Shift+S",
                 "mac": "MacCtrl+Shift+S"
