@@ -19,7 +19,7 @@ function toggleHighlighterCursor() {
     showHighlighterCursor = !showHighlighterCursor;
 
     if (showHighlighterCursor) {
-        document.body.style.cursor = `url(${chrome.runtime.getURL('images/cursor.png')}), auto`;
+        document.body.style.cursor = `url(${chrome.runtime.getURL('src/assets/images/cursor.svg')}) 2 8, text`
 
         // Highlight right away if some text is already selected:
         highlightOnSelection();

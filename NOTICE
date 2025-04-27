@@ -17,6 +17,12 @@ can be accessed on GitHub at https://github.com/jeromepl/highlighter/
 and the original copyright holder who wrote said code can be accessed
 on LinkedIn at https://www.linkedin.com/in/jeromepl
 
+The icon images used in the program ('copy.svg', 'color.svg',
+'delete.svg', and 'cursor.svg') are based on the GNOME Foundation's
+Adwaita Icon Theme, which is licensed under the CC-BY-SA License.
+As such, the derived icons are also licensed under the CC-BY-SA
+License, rather than the GNU Affero General Public License.
+
 Copyright (c) 2020 Jérôme Parent-Lévesque
 
 Permission is hereby granted, free of charge, to any person obtaining

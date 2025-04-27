@@ -4,15 +4,15 @@
     "description": "Lowlighter is a free, customizable, and fully offline highlighter for research and productivity.",
     "version": "0.1.0",
     "icons": {
-        "16": "images/16.png",
-        "48": "images/48.png",
-        "128": "images/128.png"
+        "16": "src/assets/images/16.png",
+        "48": "src/assets/images/48.png",
+        "128": "src/assets/images/128.png"
     },
     "action": {
         "default_icon": {
-            "16": "images/16.png",
-            "48": "images/48.png",
-            "128": "images/128.png"
+            "16": "src/assets/images/16.png",
+            "48": "src/assets/images/48.png",
+            "128": "src/assets/images/128.png"
         },
         "default_popup": "src/popup/index.html"
     },
@@ -92,8 +92,8 @@
     "web_accessible_resources": [
         {
             "resources": [
-                "images/*.png",
-                "images/*.svg",
+                "src/assets/images/*.png",
+                "src/assets/images/*.svg",
                 "src/contentScripts/*"
             ],
             "matches": [
