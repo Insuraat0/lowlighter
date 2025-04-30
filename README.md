@@ -6,7 +6,7 @@ Install the extension from the web stores listed below or from the releases page
 
 ## Acknowledgements
 [Highlighter Extension](https://github.com/jeromepl/highlighter/) - [Jérôme Parent-Lévesque](https://www.linkedin.com/in/jeromepl), Expat License \
-[Adwaita Icon Theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme/) - [GNOME Foundation](https://foundation.gnome.org/), Creative Commons - Attribution - Share-alike
+[Adwaita Icon Theme](https://gitlab.gnome.org/GNOME/adwaita-icon-theme/) - [GNOME Foundation](https://foundation.gnome.org/), GNU Lesser General Public Licence
 
 ## Roadmap
 - [x] Functional web highlighter that does not connect to the internet (24 April)
