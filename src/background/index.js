@@ -1,5 +1,6 @@
 import {
     changeColor,
+    createColor,
     editColor,
     getColorOptions,
     getCurrentColor,
@@ -34,10 +35,10 @@ function initializeContextMenus() {
         chrome.contextMenus.create({ title: 'Toggle Cursor', id: 'toggle-cursor' });
         chrome.contextMenus.create({ title: 'Highlighter color', id: 'highlight-colors' });
 
-		const colorOptions = await getColorOptions();
-		colorOptions.forEach((colorOption) => {
-        	chrome.contextMenus.create({ title: colorOption.name, id: colorOption.id, parentId: 'highlight-colors', type: 'radio' });
-		});
+        const colorOptions = await getColorOptions();
+        colorOptions.forEach((colorOption) => {
+            chrome.contextMenus.create({ title: colorOption.name, id: colorOption.id, parentId: 'highlight-colors', type: 'radio' });
+        });
 
         // Get the initial selected color value
         const { id: colorId } = await getCurrentColor();
@@ -139,11 +140,14 @@ function initializeMessageEventListeners() {
                 changeColor(request.color);
                 return;
             case 'edit-color':
-                editColor(request.colorId, request.color, request.textColor);
+                editColor(request.colorId, request.name, request.color, request.textColor);
                 return;
             case 'toggle-highlighter-cursor':
                 toggleHighlighterCursor();
                 return;
+            case 'create-color':
+                wrapResponse(createColor(), sendResponse);
+                return true; // return asynchronously
             case 'get-highlights':
                 wrapResponse(getHighlights(), sendResponse);
                 return true; // return asynchronously

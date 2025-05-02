@@ -7,6 +7,7 @@ export { default as getHighlights } from './getHighlights.js';
 export { default as getLostHighlights } from './getLostHighlights.js';
 export { default as changeColor } from './changeColor.js';
 export { default as editColor } from './editColor.js';
+export { default as createColor } from './createColor.js';
 export { default as getCurrentColor } from './getCurrentColor.js';
 export { default as getColorOptions } from './getColorOptions.js';
 export { default as loadPageHighlights } from './loadPageHighlights.js';

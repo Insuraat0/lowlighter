@@ -3,31 +3,25 @@ export const DEFAULT_COLORS = [
     {
         id: 'color0',
         name: 'Light',
-        color: 'rgb(255, 222, 112)', // Orange
-        textColor: 'rgb(0, 0, 0)',
+        color: '#ffde70',
+        textColor: '#000000',
     },
     {
         id: 'color1',
         name: 'Dark',
-        color: 'rgb(52, 73, 94)', // Dark
-        textColor: 'rgb(255, 255, 255)',
+        color: '#34495e',
+        textColor: '#ffffff',
     },
     /*{
         id: 'color2',
         name: 'Pink',
-        color: 'rgb(255, 202, 215)', // Pink
-        textColor: 'rgb(0, 0, 0)',
+        color: '#ffcad7',
+        textColor: '#000000',
     },
     {
         id: 'color3',
-        name: 'Yellow',
-        color: 'rgb(255, 246, 21)', // Yellow
-        textColor: 'rgb(0, 0, 0)',
-    },
-    {
-        id: 'color4',
         name: 'Blue',
-        color: 'rgb(180, 255, 235)', // Blue
-        textColor: 'rgb(0, 0, 0)',
+        color: '#b4ffeb',
+        textColor: '#000000',
     },*/
 ];
