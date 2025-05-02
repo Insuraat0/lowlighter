@@ -2,8 +2,9 @@ import { DELETED_CLASS, HIGHLIGHT_CLASS } from './constants.js';
 
 import { initializeHighlightEventListeners } from '../../hoverTools/index.js';
 
-function highlight(selString, container, selection, color, textColor, highlightIndex) {
+function highlight(selString, container, selection, id, color, textColor, highlightIndex) {
     const highlightInfo = {
+        colorId: id,
         color: color ? color : "rgb(255, 222, 112)",
         textColor: textColor ? textColor : "rgb(0, 0, 0)",
         highlightIndex: highlightIndex,
@@ -48,7 +49,7 @@ function recursiveWrapper(container, highlightInfo) {
 }
 
 function _recursiveWrapper(container, highlightInfo, startFound, charsHighlighted) {
-    const { anchor, focus, anchorOffset, focusOffset, color, textColor, highlightIndex, selectionString } = highlightInfo;
+    const { anchor, focus, anchorOffset, focusOffset, colorId, color, textColor, highlightIndex, selectionString } = highlightInfo;
     const selectionLength = selectionString.length;
 
     container.contents().each((_index, element) => {
@@ -133,6 +134,7 @@ function _recursiveWrapper(container, highlightInfo, startFound, charsHighlighte
         highlightNode.style.backgroundColor = color;
         highlightNode.style.color = textColor;
         highlightNode.dataset.highlightId = highlightIndex;
+        highlightNode.dataset.colorId = colorId.slice(-1);
         highlightNode.textContent = highlightText;
         highlightTextEl.remove();
         parent.insertBefore(highlightNode, insertBeforeElement);

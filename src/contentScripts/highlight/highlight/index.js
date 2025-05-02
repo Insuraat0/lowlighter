@@ -3,8 +3,8 @@
 // import highlightV4 from './highlightV4.js';
 import highlightV5 from './highlightV5.js';
 
-function highlight(selectionString, container, selection, color, textColor, highlightIndex, version = null) {
-    return highlightV5(selectionString, container, selection, color, textColor, highlightIndex);
+function highlight(selectionString, container, selection, id, color, textColor, highlightIndex, version = null) {
+    return highlightV5(selectionString, container, selection, id, color, textColor, highlightIndex);
     /* if (version === null || versionCompare(version, "5.0.0") >= 0) {
         // Starting with version 5, highlights use a custom element ('highlighter-span') instead of a span
         return highlightV5(selectionString, container, selection, color, textColor, highlightIndex);

@@ -95,7 +95,7 @@ function load(highlightVal, highlightIndex, colorOptions, noErrorTracking) {
         return false;
     }
 
-    const success = highlight(selectionString, container, selection, color, textColor, highlightIndex, version);
+    const success = highlight(selectionString, container, selection, id, color, textColor, highlightIndex, version);
 
     if (!noErrorTracking && !success) {
         addHighlightError(highlightVal, highlightIndex, colorOptions);

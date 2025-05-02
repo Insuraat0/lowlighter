@@ -15,7 +15,7 @@ async function create(color, selection = window.getSelection()) {
   }
 
   const highlightIndex = await store(selection, container, location.hostname + location.pathname, location.href, color.id);
-  highlight(selectionString, container, selection, color.color, color.textColor, highlightIndex);
+  highlight(selectionString, container, selection, color.id, color.color, color.textColor, highlightIndex);
 }
 
 export default create;

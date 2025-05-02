@@ -158,7 +158,8 @@ function onDeleteBtnClicked() {
 // feature: change color on popup menu
 function onChangeColorBtnClicked() {
     const highlightId = currentHighlightEl.getAttribute('data-highlight-id');
-    updateHighlightColor(highlightId);
+    const colorId = currentHighlightEl.getAttribute('data-color-id');
+    updateHighlightColor(highlightId, colorId);
 }
 
 export {

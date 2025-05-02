@@ -11,7 +11,7 @@ async function editColor(colorId, name, color, textColor) {
         delete colorOption.textColor;
     }
 
-    chrome.contextMenus.update(colorId, { title: colorOption.name || colorOption.id });
+    chrome.contextMenus.update(colorId, { title: name || colorId });
 
     chrome.storage.sync.set({ colors: colorOptions });
 }
