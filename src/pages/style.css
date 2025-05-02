@@ -1,0 +1,133 @@
+body {
+    height: 100%;
+    width: 400px;
+
+    display: flex;
+    gap: 8px;
+
+    background-color: #eee;
+
+    font-family: "Cantarell";
+}
+
+#tools-side {
+    height: 200px;
+    width: 200px;
+
+    display: flex;
+    align-content: end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#tools-side .button {
+    min-height: 16px;
+    width: auto;
+    flex: 1;
+
+    white-space: nowrap;
+}
+
+#colors-side {
+    height: 200px;
+    width: 192px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 8px;
+}
+
+#colors-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#colors-list .color {
+    height: 24px;
+    width: 24px;
+    padding: 4px;
+
+    background-color: #ddd;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+#selected-color {
+    padding: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+#selected-color div {
+    display: table-cell;
+    vertical-align: bottom;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#selected-color input[type="text"] {
+    all: unset;
+    width: 112px;
+    padding: 4px;
+
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+/* General */
+
+.button {
+    height: fit-content;
+    padding: 8px;
+
+    background-color: #ddd;
+    border-radius: 4px;
+
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.button span {
+    text-align: center;
+}
+
+.button .name {
+    font-size: 12px;
+    font-weight: bold;
+
+}
+
+.button .keylabel {
+    font-size: 10px;
+    text-decoration: underline;
+}
+
+input[type="color"] {
+    all: unset;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0px;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    width: 24px;
+    height: 12px;
+
+    border-radius: 8px;
+    border: 4px solid #bbb;
+}

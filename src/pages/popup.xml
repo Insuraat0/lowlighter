@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+	    <title>Lowlighter</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <div id="tools-side">
+            <object id="logo" width="200px" data="../assets/images/logo_name.svg" type="image/svg+xml" />
+            <div class="button" id="highlight-button">
+                <span class="name">Highlight</span> <br />
+                <span class="keylabel" />
+            </div>
+            <div class="button" id="cursor-button">
+                <span class="name">Toggle Cursor</span> <br />
+                <span class="keylabel" />
+            </div>
+            <div class="button" id="delete-button">
+                <span class="name">Delete All</span> <br />
+                <span class="keylabel" />
+            </div>
+            <div class="button" id="copy-button">
+                <span class="name">Copy All</span> <br />
+                <span class="keylabel" />
+            </div>
+            <div class="button" id="shortcuts-button">
+                <span class="name">Edit Keyboard Shortcuts</span>
+            </div>
+        </div>
+        <div id="colors-side">
+            <div id="selected-color">
+                <div>Name:</div>
+                <input type="text" id="name-input" maxlength="12" />
+                <div>Highlight color:</div>
+                <input type="color" id="highlight-color-input" />
+                <div>Text color:</div>
+                <input type="color" id="text-color-input" />
+            </div>
+            <div id="colors-list" />
+        </div>
+    </body>
+    <script src="script.js"></script>
+</html>
