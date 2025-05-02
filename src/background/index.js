@@ -146,7 +146,7 @@ function initializeMessageEventListeners() {
                 toggleHighlighterCursor();
                 return;
             case 'create-color':
-                wrapResponse(createColor(), sendResponse);
+                wrapResponse(createColor(request.name, request.color, request.textColor), sendResponse);
                 return true; // return asynchronously
             case 'get-highlights':
                 wrapResponse(getHighlights(), sendResponse);

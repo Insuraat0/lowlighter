@@ -1,18 +1,18 @@
 import getColorOptions from './getColorOptions.js';
 
-async function createColor() {
+async function createColor(name, color, textColor) {
     const colorOptions = await getColorOptions();
     const colorId = `color${colorOptions.length}`;
     const colorOption = {
-        color: '#ffde70',
+        color: color,
         id: colorId,
-        name: '',
-        textColor: '#000000',
+        name: name,
+        textColor: textColor,
     };
 
     colorOptions.push(colorOption);
     chrome.contextMenus.create({
-        title: colorId,
+        title: name || colorId,
         id: colorId,
         parentId: 'highlight-colors',
         type: 'radio',
