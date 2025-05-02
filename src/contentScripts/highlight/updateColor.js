@@ -2,12 +2,12 @@ import { update as updateStorage } from '../utils/storageManager.js';
 
 async function updateColor(highlightId, color = null) {
     color = color || await cycleColor(highlightId);
-    const highlights = $(`.highlighter--highlighted[data-highlight-id='${highlightId}']`);
+    document.querySelectorAll(`.highlighter--highlighted[data-highlight-id='${highlightId}']`).forEach((highlight) => {
+        highlight.style.backgroundColor = color.color;
+        highlight.style.color = color.textColor;
+    });
 
-    highlights.css('backgroundColor', color.color); // Change the background color attribute
-    highlights.css('color', color.textColor || "inherit");
-
-    updateStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname, color.color, color.textColor); // update the value in the local storage
+    updateStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname, color.id); // update the value in the local storage
 }
 
 // Find the current highlight color and return the next color in the list

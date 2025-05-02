@@ -8,18 +8,18 @@ const RETRY_INTERVAL = 500;
 // Use a Map instead of an object to keep order
 const lostHighlights = new Map();
 
-function addHighlightError(highlight, highlightIndex) {
+function addHighlightError(highlight, highlightIndex, colorOptions) {
     const highlightError = {
         highlight,
         highlightIndex,
         errorTime: Date.now(),
     };
-    highlightError.timeout = setTimeout(retryHighlightError, RETRY_INTERVAL, highlightError);
+    highlightError.timeout = setTimeout(retryHighlightError, RETRY_INTERVAL, highlightError, colorOptions);
     lostHighlights.set(highlightIndex, highlight);
 }
 
-function retryHighlightError(highlightError) {
-    const success = load(highlightError.highlight, highlightError.highlightIndex, true);
+function retryHighlightError(highlightError, colorOptions) {
+    const success = load(highlightError.highlight, highlightError.highlightIndex, colorOptions, true);
 
     if (success) {
         lostHighlights.delete(highlightError.highlightIndex);

@@ -11,10 +11,10 @@ async function create(color, selection = window.getSelection()) {
   // Sometimes the element will only be text. Get the parent in that case
   // TODO: Is this really necessary?
   while (!container.innerHTML) {
-      container = container.parentNode;
+    container = container.parentNode;
   }
 
-  const highlightIndex = await store(selection, container, location.hostname + location.pathname, location.href, color.color, color.textColor);
+  const highlightIndex = await store(selection, container, location.hostname + location.pathname, location.href, color.id);
   highlight(selectionString, container, selection, color.color, color.textColor, highlightIndex);
 }
 

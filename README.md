@@ -21,3 +21,7 @@ Install the extension from the web stores listed below or from the releases page
 - [ ] Pemenant sidebar with folder and citation management
 - [ ] Online support with Google/Firefox sync
 
+## Known bugs
+- [ ] Highlighting over an existing highlight results in a permenantly inaccessable highlight (present in upstream)
+- [ ] Highlighting an element with text-transform set in css always fails (present in upsteam)
+

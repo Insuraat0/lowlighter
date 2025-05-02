@@ -6,7 +6,7 @@ const STORE_FORMAT_VERSION = chrome.runtime.getManifest().version;
 
 let alternativeUrlIndexOffset = 0; // Number of elements stored in the alternativeUrl Key. Used to map highlight indices to correct key
 
-async function store(selection, container, url, href, color, textColor) {
+async function store(selection, container, url, href, id) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
 
     if (!highlights[url]) highlights[url] = [];
@@ -19,8 +19,7 @@ async function store(selection, container, url, href, color, textColor) {
         anchorOffset: selection.anchorOffset,
         focusNode: getQuery(selection.focusNode),
         focusOffset: selection.focusOffset,
-        color,
-        textColor,
+        id,
         href,
         uuid: crypto.randomUUID(),
         createdAt: Date.now(),
@@ -31,7 +30,7 @@ async function store(selection, container, url, href, color, textColor) {
     return count - 1 + alternativeUrlIndexOffset;
 }
 
-async function update(highlightIndex, url, alternativeUrl, newColor, newTextColor) {
+async function update(highlightIndex, url, alternativeUrl, newColorId) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
 
     let urlToUse = url;
@@ -45,8 +44,7 @@ async function update(highlightIndex, url, alternativeUrl, newColor, newTextColo
     if (highlightsInKey) {
         const highlightObject = highlightsInKey[indexToUse];
         if (highlightObject) {
-            highlightObject.color = newColor;
-            highlightObject.textColor = newTextColor;
+            highlightObject.id = newColorId;
             highlightObject.updatedAt = Date.now();
             chrome.storage.local.set({ highlights });
         }
@@ -70,13 +68,14 @@ async function loadAll(url, alternativeUrl) {
 
     if (!highlights) return;
 
+    const { response: colorOptions } = await chrome.runtime.sendMessage({ action: 'get-color-options' });
     for (let i = 0; i < highlights.length; i++) {
-        load(highlights[i], i);
+        load(highlights[i], i, colorOptions);
     }
 }
 
 // noErrorTracking is optional
-function load(highlightVal, highlightIndex, noErrorTracking) {
+function load(highlightVal, highlightIndex, colorOptions, noErrorTracking) {
     const selection = {
         anchorNode: elementFromQuery(highlightVal.anchorNode),
         anchorOffset: highlightVal.anchorOffset,
@@ -84,12 +83,14 @@ function load(highlightVal, highlightIndex, noErrorTracking) {
         focusOffset: highlightVal.focusOffset,
     };
 
-    const { color, string: selectionString, textColor, version } = highlightVal;
+    const { id, string: selectionString, version } = highlightVal;
+    const { color, textColor } = (id) ? colorOptions.find(option => option.id == id) : { color: 'inherit', textColor: 'inherit' };
     const container = elementFromQuery(highlightVal.container);
 
     if (!selection.anchorNode || !selection.focusNode || !container) {
+        console.log(selection, container);
         if (!noErrorTracking) {
-            addHighlightError(highlightVal, highlightIndex);
+            addHighlightError(highlightVal, highlightIndex, colorOptions);
         }
         return false;
     }
@@ -97,7 +98,7 @@ function load(highlightVal, highlightIndex, noErrorTracking) {
     const success = highlight(selectionString, container, selection, color, textColor, highlightIndex, version);
 
     if (!noErrorTracking && !success) {
-        addHighlightError(highlightVal, highlightIndex);
+        addHighlightError(highlightVal, highlightIndex, colorOptions);
     }
     return success;
 }

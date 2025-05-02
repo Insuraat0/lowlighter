@@ -11,9 +11,9 @@ const modal = document.getElementById('change-color-modal');
 
 async function open() {
     const colorOption = await getFromBackgroundPage({ action: 'get-current-color' });
-    const { colorId, color, textColor } = colorOption;
+    const { id, color, textColor } = colorOption;
 
-    colorTitleElement.innerText = colorId;
+    colorTitleElement.innerText = id;
     textColorFieldSet.disabled = !textColor;
     useTextColorCheckbox.checked = Boolean(textColor);
     highlightColorField.value = rgbToHex(color);
