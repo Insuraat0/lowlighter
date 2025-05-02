@@ -4,6 +4,7 @@ import remove from './remove.js';
 import removeLost from './removeLost.js';
 import show from './show.js';
 import updateColor from './updateColor.js';
+import updateColorIdHighlights from './updateColorIdHighlights.js';
 
 export * from './highlight/index.js';
 
@@ -14,4 +15,5 @@ export {
   removeLost,
   show,
   updateColor,
+  updateColorIdHighlights,
 };
