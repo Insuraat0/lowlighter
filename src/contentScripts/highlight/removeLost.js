@@ -3,7 +3,7 @@ import { removeHighlight as removeHighlightFromStorage } from "../utils/storageM
 
 function removeLost(highlightId) {
     removeLostHighlight(highlightId);
-    removeHighlightFromStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname);
+    removeHighlightFromStorage(highlightId, window.location.hostname + window.location.pathname);
 }
 
 export default removeLost;

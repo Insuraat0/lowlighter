@@ -4,8 +4,6 @@ import { highlight } from '../highlight/index.js';
 
 const STORE_FORMAT_VERSION = chrome.runtime.getManifest().version;
 
-let alternativeUrlIndexOffset = 0; // Number of elements stored in the alternativeUrl Key. Used to map highlight indices to correct key
-
 async function store(selection, container, url, href, id) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
 
@@ -27,22 +25,15 @@ async function store(selection, container, url, href, id) {
     chrome.storage.local.set({ highlights });
 
     // Return the index of the new highlight:
-    return count - 1 + alternativeUrlIndexOffset;
+    return count - 1;
 }
 
-async function update(highlightIndex, url, alternativeUrl, newColorId) {
+async function update(highlightIndex, url, newColorId) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
+    const highlightsInKey = highlights[url];
 
-    let urlToUse = url;
-    let indexToUse = highlightIndex - alternativeUrlIndexOffset;
-    if (highlightIndex < alternativeUrlIndexOffset) {
-        urlToUse = alternativeUrl;
-        indexToUse = highlightIndex;
-    }
-
-    const highlightsInKey = highlights[urlToUse];
     if (highlightsInKey) {
-        const highlightObject = highlightsInKey[indexToUse];
+        const highlightObject = highlightsInKey[highlightIndex];
         if (highlightObject) {
             highlightObject.id = newColorId;
             highlightObject.updatedAt = Date.now();
@@ -51,23 +42,11 @@ async function update(highlightIndex, url, alternativeUrl, newColorId) {
     }
 }
 
-// alternativeUrl is optional
-async function loadAll(url, alternativeUrl) {
+async function loadAll(url) {
     const result = await chrome.storage.local.get({ highlights: {} });
-    let highlights = [];
-
-    // Because of a bug in an older version of the code, some highlights were stored
-    // using a key that didn't correspond to the full page URL. To fix this, if the
-    // alternativeUrl exists, try to load highlights from there as well
-    if (alternativeUrl) {
-        highlights = highlights.concat(result.highlights[alternativeUrl] || []);
-    }
-    alternativeUrlIndexOffset = highlights.length;
-
-    highlights = highlights.concat(result.highlights[url] || []);
+    const highlights = result.highlights[url];
 
     if (!highlights) return;
-
     const { response: colorOptions } = await chrome.runtime.sendMessage({ action: 'get-color-options' });
     for (let i = 0; i < highlights.length; i++) {
         load(highlights[i], i, colorOptions);
@@ -103,28 +82,17 @@ function load(highlightVal, highlightIndex, colorOptions, noErrorTracking) {
     return success;
 }
 
-async function removeHighlight(highlightIndex, url, alternativeUrl) {
+async function removeHighlight(highlightIndex, url) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
 
-    if (highlightIndex < alternativeUrlIndexOffset) {
-        highlights[alternativeUrl].splice(highlightIndex, 1);
-    } else {
-        highlights[url].splice(highlightIndex - alternativeUrlIndexOffset, 1);
-    }
-
+    highlights[url].splice(highlightIndex, 1);
     chrome.storage.local.set({ highlights });
 }
 
-// alternativeUrl is optional
-async function clearPage(url, alternativeUrl) {
+async function clearPage(url) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
 
     delete highlights[url];
-    if (alternativeUrl) {
-        // See 'loadAll()' for an explaination of why this is necessary
-        delete highlights[alternativeUrl];
-    }
-
     chrome.storage.local.set({ highlights });
 }
 

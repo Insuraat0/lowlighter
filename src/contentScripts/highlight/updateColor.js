@@ -8,7 +8,7 @@ async function updateColor(highlightId, colorId, color = null) {
         highlight.dataset.colorId = color.id.slice(-1);
     });
 
-    updateStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname, color.id); // update the value in the local storage
+    updateStorage(highlightId, window.location.hostname + window.location.pathname, color.id); // update the value in the local storage
 }
 
 // Find the current highlight color and return the next color in the list

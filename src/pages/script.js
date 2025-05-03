@@ -125,7 +125,7 @@ async function initColorsList() {
     const selectedColor = await getFromMessage('get-current-color');
     const svgFetchResponse = await fetch('../assets/images/display_color.svg');
     const svgText = await svgFetchResponse.text();
-    setSelectedColorElement(selectedColor);
+    setSelectedColorElement(selectedColor.id);
 
     colorOptions.forEach(async (colorOption) => {
         const colorOptionElement = document.createElementNS(XHTML, 'div');
