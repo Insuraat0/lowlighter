@@ -30,6 +30,39 @@ body {
     gap: 8px;
 }
 
+#options {
+    height: 24px;
+
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+#options div {
+    height: 24px;
+    width: 24px;
+
+    background-size: contain;
+
+    cursor: pointer;
+}
+
+#collapse-button {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/src/assets/images/expand.svg');
+}
+
+#dashboard-button {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/src/assets/images/dashboard.svg');
+}
+
+#settings-button {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/src/assets/images/settings.svg');
+}
+
+#exit-button {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/src/assets/images/close_window.svg');
+}
+
 #colors-list {
     display: flex;
     flex-wrap: wrap;

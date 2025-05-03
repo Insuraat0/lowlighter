@@ -5,10 +5,18 @@ const cursorButton = document.getElementById('cursor-button');
 const deleteAllButton = document.getElementById('delete-button');
 const copyAllButton = document.getElementById('copy-button');
 const shortcutsButton = document.getElementById('shortcuts-button');
+
+const collapseButton = document.getElementById('collapse-button');
+const dashboardButton = document.getElementById('dashboard-button');
+const settingsButton = document.getElementById('settings-button');
+const exitButton = document.getElementById('exit-button');
+
 const colorNameInput = document.getElementById('name-input');
 const highlightColorInput = document.getElementById('highlight-color-input');
 const textColorInput = document.getElementById('text-color-input');
+
 const colorsList = document.getElementById('colors-list');
+const highlightListContainer = document.getElementById('highlight-list-container');
 const highlightList = document.getElementById('highlight-list-scroll');
 
 var colorOptions;
@@ -25,25 +33,46 @@ async function closeAfterMessage(action) {
 
 async function initActionButtons() {
     const allKeybinds = await chrome.commands.getAll();
+    [
+        [highlightButton, 'a-execute-highlight'],
+        [cursorButton, 'b-toggle-highlighter-cursor'],
+        [deleteAllButton, 'delete-all'],
+        [copyAllButton, 'copy-all']
+    ].forEach(([element, keybindName]) => {
+        const keybind = allKeybinds.find(keybind => keybind.name == keybindName);
+        element.querySelector('.keylabel').innerText = keybind?.shortcut || 'No keybind';
+    })
 
-    const highlightKeybind = allKeybinds.find(keybind => keybind.name == 'a-execute-highlight');
-    highlightButton.querySelector('.keylabel').innerText = highlightKeybind?.shortcut || 'No keybind';
     highlightButton.addEventListener('click', () => closeAfterMessage('highlight'));
-
-    const cursorKeybind = allKeybinds.find(keybind => keybind.name == 'b-toggle-highlighter-cursor');
-    cursorButton.querySelector('.keylabel').innerText = cursorKeybind?.shortcut || 'No keybind';
     cursorButton.addEventListener('click', () => closeAfterMessage('toggle-highlighter-cursor'));
-
-    const deleteAllKeybind = allKeybinds.find(keybind => keybind.name == 'delete-all');
-    deleteAllButton.querySelector('.keylabel').innerText = deleteAllKeybind?.shortcut || 'No keybind';
     deleteAllButton.addEventListener('click', () => closeAfterMessage('remove-highlights'));
-
-    const copyAllKeybind = allKeybinds.find(keybind => keybind.name == 'copy-all');
-    copyAllButton.querySelector('.keylabel').innerText = copyAllKeybind?.shortcut || 'No keybind';
-
+    copyAllButton.addEventListener('click', () => navigator.clipboard.writeText(highlightList.innerText));
     shortcutsButton.addEventListener('click', () => {
         chrome.tabs.create({ url: 'chrome://extensions/shortcuts/' });
     });
+}
+
+function initOptionIcons() {
+    collapseButton.addEventListener('click', () => {
+        const highlightListStyle = highlightListContainer.style;
+        if (highlightListStyle.display == 'none') {
+            highlightListStyle.display = 'block'
+            collapseButton.style.transform = "rotate(0deg)";
+        } else {
+            highlightListStyle.display = 'none';
+            collapseButton.style.transform = "rotate(180deg)";
+        }
+    });
+
+    dashboardButton.addEventListener('click', () => {
+        chrome.tabs.create({ url: 'src/pages/dashboard.xml' });
+    });
+
+    settingsButton.addEventListener('click', () => {
+        chrome.tabs.create({ url: 'src/pages/settings.xml' });
+    });
+
+    exitButton.addEventListener('click', () => window.close());
 }
 
 async function updateSelectedColorProperties() {
@@ -156,7 +185,12 @@ async function initColorsList() {
 
 async function initHighlightList() {
     const highlights = await getFromMessage('get-highlights');
-    highlights?.forEach((highlight) => {
+    if (!highlights || !highlights.length) {
+        highlightListContainer.style.display = 'none';
+        collapseButton.style.display = 'none';
+        return;
+    }
+    highlights.forEach((highlight) => {
         const breakElement = document.createElementNS(XHTML, 'hr');
         const highlightElement = document.createElementNS(XHTML, 'div');
         highlightElement.innerText = highlight[1];
@@ -170,6 +204,7 @@ async function initHighlightList() {
 }
 
 initActionButtons();
+initOptionIcons();
 initSelectedColorElement();
 initColorsList();
 initHighlightList();

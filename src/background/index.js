@@ -37,7 +37,7 @@ function initializeContextMenus() {
 
         const colorOptions = await getColorOptions();
         colorOptions.forEach((colorOption) => {
-            chrome.contextMenus.create({ title: colorOption.name, id: colorOption.id, parentId: 'highlight-colors', type: 'radio' });
+            chrome.contextMenus.create({ title: colorOption.name || colorOption.id, id: colorOption.id, parentId: 'highlight-colors', type: 'radio' });
         });
 
         // Get the initial selected color value

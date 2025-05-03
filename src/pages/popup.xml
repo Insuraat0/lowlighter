@@ -30,6 +30,12 @@
             </div>
         </div>
         <div id="colors-side">
+            <div id="options">
+                <div id="collapse-button" />
+                <div id="dashboard-button" />
+                <div id="settings-button" />
+                <div id="exit-button" />
+            </div>
             <div id="selected-color">
                 <div>Name:</div>
                 <input type="text" id="name-input" maxlength="12" />

@@ -11,7 +11,7 @@ Install the extension from the web stores listed below or from the releases page
 ## Roadmap
 - [x] Functional web highlighter that does not connect to the internet (24 April)
 - [x] Reworked icons to better fit new project theme (26 April)
-- [ ] Support for up to ten customizable colors in intuative popup menu
+- [x] Support for up to ten customizable colors in intuative popup menu (03 May)
 - [ ] Keyboard shortcuts for all possible actions
 - [ ] Organized dashboard page with highlight management options
 - [ ] Folders for organizing research projects and seperate color labels per folder
