@@ -1,8 +1,8 @@
 body {
-    height: 100%;
     width: 400px;
 
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 
     background-color: #eee;
@@ -18,14 +18,6 @@ body {
     align-content: end;
     flex-wrap: wrap;
     gap: 8px;
-}
-
-#tools-side .button {
-    min-height: 16px;
-    width: auto;
-    flex: 1;
-
-    white-space: nowrap;
 }
 
 #colors-side {
@@ -85,16 +77,52 @@ body {
     border-radius: 4px;
 }
 
+#highlight-list-container {
+    padding: 8px;
+    padding-right: 4px;
+
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+#highlight-list-scroll {
+    max-height: 360px;
+    width: 384px;
+    padding-right: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    overflow-y: scroll;
+}
+
+#highlight-list-scroll::-webkit-scrollbar {
+    width: 4px;
+
+    background-color: transparent;
+}
+
+#highlight-list-scroll::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 4px;
+}
+
 /* General */
 
 .button {
     height: fit-content;
+    min-height: 16px;
+    width: auto;
     padding: 8px;
+
+    flex: 1;
 
     background-color: #ddd;
     border-radius: 4px;
 
     text-align: center;
+    white-space: nowrap;
 
     cursor: pointer;
 }
@@ -130,4 +158,10 @@ input[type="color"]::-webkit-color-swatch {
 
     border-radius: 8px;
     border: 4px solid #bbb;
+}
+
+hr {
+    all: unset;
+
+    border-top: 2px double #000;
 }

@@ -9,7 +9,7 @@ const colorNameInput = document.getElementById('name-input');
 const highlightColorInput = document.getElementById('highlight-color-input');
 const textColorInput = document.getElementById('text-color-input');
 const colorsList = document.getElementById('colors-list');
-const colorDisplayTemplate = document.getElementById('color-display-template');
+const highlightList = document.getElementById('highlight-list-scroll');
 
 var colorOptions;
 
@@ -107,13 +107,15 @@ async function addColor(svgText) {
     const allColorElements = colorsList.children;
     const colorAddElement = allColorElements[allColorElements.length - 1]
 
+    colorOptions.push(colorOption);
+
     colorOptionElement.id = colorOption.id;
     colorOptionElement.classList.add('color');
     colorOptionElement.innerHTML = svgText;
     colorOptionElement.querySelector('.bg').style.fill = colorOption.color;
     colorOptionElement.querySelector('.tx').style.fill = colorOption.textColor;
-    colorOptionElement.addEventListener('click', () => changeColor(colorOption));
-    changeColor(colorOption);
+    colorOptionElement.addEventListener('click', () => changeColor(colorOption.id));
+    changeColor(colorOption.id);
 
     colorsList.insertBefore(colorOptionElement, colorAddElement);
     if (allColorElements.length > 10) { colorAddElement.remove() };
@@ -152,7 +154,23 @@ async function initColorsList() {
     }
 }
 
+async function initHighlightList() {
+    const highlights = await getFromMessage('get-highlights');
+    highlights?.forEach((highlight) => {
+        const breakElement = document.createElementNS(XHTML, 'hr');
+        const highlightElement = document.createElementNS(XHTML, 'div');
+        highlightElement.innerText = highlight[1];
+
+        highlightList.appendChild(breakElement);
+        highlightList.appendChild(highlightElement);
+    });
+
+    const lastBreakElement = document.createElementNS(XHTML, 'hr');
+    highlightList.appendChild(lastBreakElement);
+}
+
 initActionButtons();
 initSelectedColorElement();
 initColorsList();
+initHighlightList();
 

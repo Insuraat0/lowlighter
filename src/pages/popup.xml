@@ -40,6 +40,9 @@
             </div>
             <div id="colors-list" />
         </div>
+        <div id="highlight-list-container">
+            <div id="highlight-list-scroll" />
+        </div>
     </body>
     <script src="script.js"></script>
 </html>
