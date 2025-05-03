@@ -17,9 +17,8 @@ can be accessed on GitHub at https://github.com/jeromepl/highlighter/
 and the original copyright holder who wrote said code can be accessed
 on LinkedIn at https://www.linkedin.com/in/jeromepl
 
-The icon images used in the program ('add_color.svg',
-'change_color.svg', 'copy.svg', 'cursor.svg', 'delete.svg', and
-'display_color.svg') are based on the GNOME Foundation's Adwaita Icon
+The icon images used in the program (except for 'logo.svg' and
+'logo_name.svg') are based on the GNOME Foundation's Adwaita Icon
 Theme, which is licensed under the GNU Lesser General Public Licence,
 which allows derivative works to be distributed under the standard GNU
 General Public License. As such, the icons included in the program are
