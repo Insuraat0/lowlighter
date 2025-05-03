@@ -13,7 +13,7 @@ function remove(highlightId) {
         removeHighlightEventListeners(highlight);
     });
 
-    updateStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname, null); // update the value in the local storage
+    updateStorage(highlightId, window.location.hostname + window.location.pathname, window.location.pathname, 'none'); // update the value in the local storage
 }
 
 export default remove;

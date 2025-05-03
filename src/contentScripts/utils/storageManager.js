@@ -84,7 +84,7 @@ function load(highlightVal, highlightIndex, colorOptions, noErrorTracking) {
     };
 
     const { id, string: selectionString, version } = highlightVal;
-    const { color, textColor } = (id) ? colorOptions.find(option => option.id == id) : { color: 'inherit', textColor: 'inherit' };
+    const { color, textColor } = (id == 'none') ? { color: 'inherit', textColor: 'inherit' } : colorOptions.find(option => option.id == id);
     const container = elementFromQuery(highlightVal.container);
 
     if (!selection.anchorNode || !selection.focusNode || !container) {

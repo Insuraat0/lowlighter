@@ -11,6 +11,8 @@ const textColorInput = document.getElementById('text-color-input');
 const colorsList = document.getElementById('colors-list');
 const colorDisplayTemplate = document.getElementById('color-display-template');
 
+var colorOptions;
+
 async function getFromMessage(action) {
     const response = await chrome.runtime.sendMessage({ action: action });
     return response.response;
@@ -54,6 +56,12 @@ async function updateSelectedColorProperties() {
     const selectedColorListElement = document.getElementById(selectedColorId);
     selectedColorListElement.querySelector('.bg').style.fill = newColor;
     selectedColorListElement.querySelector('.tx').style.fill = newTextColor;
+    selectedColorListElement.removeEventListener('click', () => changeColor(selectedColor));
+
+    const selectedColorOption = colorOptions.find(option => option.id == selectedColorId);
+    selectedColorOption.color = newColor;
+    selectedColorOption.textColor = newTextColor;
+    selectedColorOption.name = newColorName;
 
     chrome.runtime.sendMessage({
         action: 'edit-color',
@@ -70,18 +78,20 @@ function initSelectedColorElement() {
     textColorInput.addEventListener('change', updateSelectedColorProperties);
 }
 
-function setSelectedColorElement(color) {
-    colorNameInput.placeholder = color.id;
-    colorNameInput.value = color.name;
-    highlightColorInput.value = color.color;
-    textColorInput.value = color.textColor;
+async function setSelectedColorElement(colorId) {
+    const colorOption = colorOptions.find(option => option.id == colorId);
+
+    colorNameInput.placeholder = colorId;
+    colorNameInput.value = colorOption.name;
+    highlightColorInput.value = colorOption.color;
+    textColorInput.value = colorOption.textColor;
 }
 
-function changeColor(color) {
-    setSelectedColorElement(color);
+function changeColor(colorId) {
+    setSelectedColorElement(colorId);
     chrome.runtime.sendMessage({
         action: 'change-color',
-        color: color.id,
+        color: colorId,
     });
 }
 
@@ -111,7 +121,7 @@ async function addColor(svgText) {
 }
 
 async function initColorsList() {
-    const colorOptions = await getFromMessage('get-color-options');
+    colorOptions = await getFromMessage('get-color-options');
     const selectedColor = await getFromMessage('get-current-color');
     const svgFetchResponse = await fetch('../assets/images/display_color.svg');
     const svgText = await svgFetchResponse.text();
@@ -125,7 +135,7 @@ async function initColorsList() {
         colorOptionElement.querySelector('.bg').style.fill = colorOption.color;
         colorOptionElement.querySelector('.tx').style.fill = colorOption.textColor;
 
-        colorOptionElement.addEventListener('click', () => changeColor(colorOption));
+        colorOptionElement.addEventListener('click', () => changeColor(colorOption.id));
         colorsList.appendChild(colorOptionElement);
     });
 
