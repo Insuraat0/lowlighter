@@ -1,0 +1,22 @@
+body div#center div#scroll {
+    &::-webkit-scrollbar-thumb {
+        background-color: #d8d8d8;
+    }
+
+    div#main div.minilist {
+        background-color: #d8d8d8;
+
+        div.entry {
+            background-color: #eeeeee;
+
+            &.expanded,
+            &:hover {
+                background-color: #e3e3e3;
+            }
+
+            div.note {
+                background-color: #eeeeee;
+            }
+        }
+    }
+}

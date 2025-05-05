@@ -1,0 +1,106 @@
+body {
+    margin: 0px;
+    display: flex;
+
+    background-color: #eee;
+
+    font-family: "Cantarell";
+
+    div#sidemenu {
+        height: 100vh;
+        width: 48px;
+
+        background-color: #ddd;
+    }
+
+    div#center {
+        margin: 0px auto;
+
+        div#scroll {
+            height: 100vh;
+            margin: 0px 8px 0px 16px;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-track {
+                margin: 8px 0px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 4px;
+            }
+
+            div#main {
+                max-width: 600px;
+                margin: 8px;
+
+                display: flex;
+                flex-direction: column;
+                row-gap: 8px;
+
+
+                div.minilist {
+                    padding: 8px;
+
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 8px;
+
+                    border-radius: 4px;
+
+                    div.header {
+                        span.title {
+                            margin-right: 4px;
+
+                            font-size: 14px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    div.entry {
+                        padding: 8px;
+
+                        cursor: pointer;
+
+                        border-left: 8px solid;
+                        border-radius: 4px;
+
+                        &.expanded {
+                            div.note {
+                                display: block;
+                            }
+                        }
+
+                        div.note {
+                            margin-top: 8px;
+                            padding: 8px;
+
+                            display: none;
+                            cursor: default;
+
+                            border-radius: 4px;
+
+                            textarea {
+                                all: unset;
+                                width: -webkit-fill-available;
+
+                                cursor: text;
+
+                                word-wrap: break-word;
+
+                                &::-webkit-scrollbar {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
