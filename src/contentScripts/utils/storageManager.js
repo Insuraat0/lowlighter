@@ -4,10 +4,16 @@ import { highlight } from '../highlight/index.js';
 
 const STORE_FORMAT_VERSION = chrome.runtime.getManifest().version;
 
-async function store(selection, container, url, href, id) {
+async function store(selection, container, url, href, pageTitle, id) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
+    const { rootFolder } = await chrome.storage.local.get({ rootFolder: { subfolders: {}, contents: {} } });
+    const selectedFolder = rootFolder;
+    const folderContent = selectedFolder.contents;
 
     if (!highlights[url]) highlights[url] = [];
+    if (!folderContent[url]) folderContent[url] = { list: [], name: pageTitle };
+
+    const currentTime = Date.now();
 
     const count = highlights[url].push({
         version: STORE_FORMAT_VERSION,
@@ -20,12 +26,18 @@ async function store(selection, container, url, href, id) {
         id,
         href,
         uuid: crypto.randomUUID(),
-        createdAt: Date.now(),
+        createdAt: currentTime,
     });
-    chrome.storage.local.set({ highlights });
 
-    // Return the index of the new highlight:
-    return count - 1;
+    const index = count - 1
+    selectedFolder.updated = currentTime;
+    folderContent[url].updated = currentTime;
+    folderContent[url].list.push(index);
+
+    chrome.storage.local.set({ highlights });
+    chrome.storage.local.set({ rootFolder });
+
+    return index;
 }
 
 async function update(highlightIndex, url, newColorId) {

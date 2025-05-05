@@ -2,50 +2,94 @@ const XHTML = 'http://www.w3.org/1999/xhtml';
 
 const mainElement = document.getElementById('main');
 
+function formatDate(dateString) {
+    const dateObject = new Date(dateString);
+    const dateFormatted = dateObject.toLocaleString('en-GB', {
+        year: '2-digit',
+        month: 'long',
+        day: '2-digit',
+        hour: 'numeric',
+        hourCycle: 'h11',
+        minute: '2-digit'
+    }).replace(' at ', ', ').replace('pm', 'PM').replace('am', 'AM');
+
+    return dateFormatted;
+}
+
+
 async function init() {
     const { highlights } = await chrome.storage.local.get('highlights');
     const { colors } = await chrome.storage.sync.get('colors');
+    const { rootFolder } = await chrome.storage.local.get('rootFolder');
 
-    for (const pageName in highlights) {
+    if (!highlights || !colors || !rootFolder) {
+        const simpleMessage = document.createElementNS(XHTML, 'span');
+        simpleMessage.innerText = 'Nothing to show!';
+
+        mainElement.appendChild(simpleMessage);
+        return;
+    }
+
+    const selectedFolder = rootFolder;
+    const folderContent = selectedFolder.contents;
+
+    for (const pageName in folderContent) {
+        const pageObject = folderContent[pageName];
+        const pageHighlights = highlights[pageName];
+
         const minilistElement = document.createElementNS(XHTML, 'div');
         const headerElement = document.createElementNS(XHTML, 'div');
+        const headerTopRowElement = document.createElementNS(XHTML, 'div');
         const titleElement = document.createElementNS(XHTML, 'span');
         const urlElement = document.createElementNS(XHTML, 'span');
-
-        titleElement.classList.add('title');
-        titleElement.innerText = 'Page title';
-
-        urlElement.classList.add('url');
-        urlElement.innerText = `(${pageName})`;
-
-        headerElement.classList.add('header');
-        headerElement.appendChild(titleElement);
-        headerElement.appendChild(urlElement);
+        const headerBottomRowElement = document.createElementNS(XHTML, 'div');
+        const dateElement = document.createElementNS(XHTML, 'span');
+        const countElement = document.createElementNS(XHTML, 'span');
 
         minilistElement.classList.add('minilist');
         minilistElement.appendChild(headerElement);
 
-        highlights[pageName].forEach((highlight) => {
+        headerElement.classList.add('header');
+        headerElement.appendChild(headerTopRowElement);
+        headerElement.appendChild(headerBottomRowElement);
+
+        headerTopRowElement.classList.add('header-top-row');
+        headerTopRowElement.appendChild(titleElement);
+        headerTopRowElement.appendChild(urlElement);
+
+        titleElement.classList.add('title');
+        titleElement.innerText = pageObject.name;
+
+        urlElement.classList.add('url');
+        urlElement.innerText = `(${pageName})`;
+
+        headerBottomRowElement.classList.add('header-bottom-row');
+        headerBottomRowElement.appendChild(dateElement);
+        headerBottomRowElement.appendChild(countElement);
+
+        dateElement.classList.add('date');
+        dateElement.innerText = formatDate(pageObject.updated);
+
+        var highlightCounter = 0;
+        var colorCounter = new Set;
+        countElement.classList.add('count');
+
+        pageObject.list.forEach((highlightIndex) => {
+            const highlight = pageHighlights[highlightIndex];
             const colorId = highlight.id;
             const highlightColor = colors.find(color => color.id == colorId)
+
             if (!highlightColor) { return }
+            highlightCounter++;
+            colorCounter.add(colorId);
 
             const entryElement = document.createElementNS(XHTML, 'div');
+            const entryClasses = entryElement.classList;
             const noteElement = document.createElementNS(XHTML, 'div');
             const noteContentElement = document.createElementNS(XHTML, 'textarea');
 
-            noteContentElement.rows = 3;
-            noteContentElement.value = highlight.note || '';
-            noteContentElement.addEventListener('change', async () => {
-                highlight.note = noteContentElement.value.trim();
-                chrome.storage.local.set({ highlights });
-                //  TODO: if the color is changed in another tab, the change is undone 
-            });
+            minilistElement.appendChild(entryElement);
 
-            noteElement.classList.add('note');
-            noteElement.appendChild(noteContentElement);
-
-            const entryClasses = entryElement.classList;
             entryClasses.add('entry');
             entryElement.style.borderColor = highlightColor.color;
             entryElement.innerText = highlight.string.trim();
@@ -55,9 +99,19 @@ async function init() {
                 entryClasses.toggle('expanded');
             });
 
-            minilistElement.appendChild(entryElement);
+            noteElement.classList.add('note');
+            noteElement.appendChild(noteContentElement);
+
+            noteContentElement.rows = 3;
+            noteContentElement.value = highlight.note || '';
+            noteContentElement.addEventListener('change', async () => {
+                highlight.note = noteContentElement.value.trim();
+                chrome.storage.local.set({ highlights });
+                //  TODO: if the color is changed in another tab, the change is undone 
+            });
         })
 
+        countElement.innerText = `(${highlightCounter} highlights, ${colorCounter.size} colors)`;
         mainElement.appendChild(minilistElement);
     }
 }
