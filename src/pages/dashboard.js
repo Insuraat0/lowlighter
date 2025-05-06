@@ -1,6 +1,7 @@
 const XHTML = 'http://www.w3.org/1999/xhtml';
 
 const mainElement = document.getElementById('main');
+const folderList = document.getElementById('folderlist');
 
 function formatDate(dateString) {
     const dateObject = new Date(dateString);
@@ -16,23 +17,7 @@ function formatDate(dateString) {
     return dateFormatted;
 }
 
-
-async function init() {
-    const { highlights } = await chrome.storage.local.get('highlights');
-    const { colors } = await chrome.storage.sync.get('colors');
-    const { rootFolder } = await chrome.storage.local.get('rootFolder');
-
-    if (!highlights || !colors || !rootFolder) {
-        const simpleMessage = document.createElementNS(XHTML, 'span');
-        simpleMessage.innerText = 'Nothing to show!';
-
-        mainElement.appendChild(simpleMessage);
-        return;
-    }
-
-    const selectedFolder = rootFolder;
-    const folderContent = selectedFolder.contents;
-
+function initMinilists(folderContent, colorOptions, highlights) {
     for (const pageName in folderContent) {
         const pageObject = folderContent[pageName];
         const pageHighlights = highlights[pageName];
@@ -77,7 +62,7 @@ async function init() {
         pageObject.list.forEach((highlightIndex) => {
             const highlight = pageHighlights[highlightIndex];
             const colorId = highlight.id;
-            const highlightColor = colors.find(color => color.id == colorId)
+            const highlightColor = colorOptions.find(color => color.id == colorId)
 
             if (!highlightColor) { return }
             highlightCounter++;
@@ -114,6 +99,66 @@ async function init() {
         countElement.innerText = `(${highlightCounter} highlights, ${colorCounter.size} colors)`;
         mainElement.appendChild(minilistElement);
     }
+}
+
+function initFolderList(folder, folderName, folderPath, parentElement) {
+    const subfolders = folder.subfolders;
+    const folderElement = document.createElementNS(XHTML, 'div');
+    const folderContent = document.createElementNS(XHTML, 'div');
+
+    parentElement.appendChild(folderElement);
+
+    folderElement.classList.add('folder');
+    folderElement.appendChild(folderContent);
+
+    folderContent.classList.add('content');
+    folderContent.innerText = folderName;
+    folderContent.addEventListener('click', () => {
+        chrome.storage.local.set({ selectedFolderPath: folderPath });
+        location.reload();
+    });
+
+    for (const subfolderName in subfolders) {
+        const subfolderPath = `${folderPath}.${subfolderName}`;
+        initFolderList(subfolders[subfolderName], subfolderName, subfolderPath, folderElement);
+    }
+}
+
+function parseSubfolders(rootFolder, subfolderPath, update, excludeRoot) {
+    var selectedFolder = rootFolder;
+    subfolderPath.split('.').forEach((subfolder) => {
+        if (subfolder == 'root') return;
+
+        const selectedSubfolders = selectedFolder.subfolders;
+        if (update && !selectedSubfolders[subfolder]) {
+            selectedSubfolders[subfolder] = { subfolders: {}, contents: {}, updated: Date.now() }
+        }
+
+        selectedFolder = selectedSubfolders[subfolder];
+    });
+
+    if (excludeRoot && !selectedFolder.contents) selectedFolder = selectedFolder.subfolders.default;
+    if (update) chrome.storage.local.set({ rootFolder });
+    return selectedFolder
+}
+
+async function init() {
+    const { highlights } = await chrome.storage.local.get('highlights');
+    const { colors } = await chrome.storage.sync.get('colors');
+    const { rootFolder } = await chrome.storage.local.get('rootFolder');
+    const { selectedFolderPath } = await chrome.storage.local.get({ selectedFolderPath: 'root.default' });
+
+    if (!highlights || !colors || !rootFolder) {
+        const simpleMessage = document.createElementNS(XHTML, 'span');
+        simpleMessage.innerText = 'Nothing to show!';
+
+        mainElement.appendChild(simpleMessage);
+        return;
+    }
+
+    const selectedFolder = parseSubfolders(rootFolder, selectedFolderPath, true, false);
+    initFolderList(rootFolder, 'root', 'root', folderList);
+    initMinilists(selectedFolder.contents, colors, highlights);
 }
 
 init();

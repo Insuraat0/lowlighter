@@ -4,10 +4,29 @@ import { highlight } from '../highlight/index.js';
 
 const STORE_FORMAT_VERSION = chrome.runtime.getManifest().version;
 
+function parseSubfolders(rootFolder, subfolderPath, update, excludeRoot) {
+    var selectedFolder = rootFolder;
+    subfolderPath.split('.').forEach((subfolder) => {
+        if (subfolder == 'root') return;
+
+        const selectedSubfolders = selectedFolder.subfolders;
+        if (update && !selectedSubfolders[subfolder]) {
+            selectedSubfolders[subfolder] = { subfolders: {}, contents: {}, updated: Date.now() }
+        }
+
+        selectedFolder = selectedSubfolders[subfolder];
+    });
+
+    if (excludeRoot && !selectedFolder.contents) selectedFolder = selectedFolder.subfolders.default;
+    if (update) chrome.storage.local.set({ rootFolder });
+    return selectedFolder
+}
+
 async function store(selection, container, url, href, pageTitle, id) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
-    const { rootFolder } = await chrome.storage.local.get({ rootFolder: { subfolders: {}, contents: {} } });
-    const selectedFolder = rootFolder;
+    const { rootFolder } = await chrome.storage.local.get({ rootFolder: { subfolders: { default: { subfolders: {}, contents: {} } } } });
+    const { selectedFolderPath } = await chrome.storage.local.get({ selectedFolderPath: 'root.default' });
+    const selectedFolder = parseSubfolders(rootFolder, selectedFolderPath, false, true);
     const folderContent = selectedFolder.contents;
 
     if (!highlights[url]) highlights[url] = [];

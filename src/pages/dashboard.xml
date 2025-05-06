@@ -11,7 +11,11 @@
         <div id="sidemenu" />
         <div id="center">
             <div id="scroll">
-                <div id="main" />
+                <div id="main">
+                    <div id="sortmenu">
+                        <div id="folderlist" />
+                    </div>
+                </div>
             </div>
         </div>
     </body>

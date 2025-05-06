@@ -43,6 +43,37 @@ body {
                 flex-direction: column;
                 row-gap: 8px;
 
+                div#sortmenu {
+                    padding: 8px;
+
+                    background-color: #ddd;
+                    border-radius: 4px;
+
+                    div#folderlist {
+                        padding: 8px;
+
+                        background-color: #eee;
+                        border-radius: 4px;
+
+                        div.folder {
+                            margin-bottom: -8px;
+
+                            div.content {
+                                padding: 8px;
+
+                                background-color: #ddd;
+                                border-radius: 4px;
+
+                                text-transform: capitalize;
+                            }
+
+                            div.folder {
+                                margin: 8px 0px 8px 32px;
+                            }
+                        }
+                    }
+                }
+
 
                 div.minilist {
                     padding: 8px;
