@@ -45,7 +45,7 @@
                         </div>
                         <div id="searchbar-row">
                             <div id="searchbar">
-                                <input type="text" />
+                                <input type="text" id="searchbar-input" />
                             </div>
                             <div id="search-button">Search</div>
                             <div id="advanced-toggle">Advanced</div>
