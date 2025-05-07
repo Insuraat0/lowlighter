@@ -10,8 +10,9 @@ function parseSubfolders(rootFolder, subfolderPath, update, excludeRoot) {
         if (subfolder == 'root') return;
 
         const selectedSubfolders = selectedFolder.subfolders;
+        const currentTime = Date.now();
         if (update && !selectedSubfolders[subfolder]) {
-            selectedSubfolders[subfolder] = { subfolders: {}, contents: {}, updated: Date.now() }
+            selectedSubfolders[subfolder] = { subfolders: {}, contents: {}, updated: currentTime, created: currentTime }
         }
 
         selectedFolder = selectedSubfolders[subfolder];
@@ -22,6 +23,17 @@ function parseSubfolders(rootFolder, subfolderPath, update, excludeRoot) {
     return selectedFolder
 }
 
+async function updatePageOrder(url) {
+    const { highlights } = await chrome.storage.local.get({ highlights: {} });
+    const pageHighlights = highlights[url];
+    document.querySelectorAll('.highlighter--highlighted').forEach((highlight, indexInPage) => {
+        const indexInStorage = highlight.dataset.highlightId;
+        pageHighlights[indexInStorage].order = indexInPage;
+    });
+
+    chrome.storage.local.set({ highlights });
+}
+
 async function store(selection, container, url, href, pageTitle, id) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
     const { rootFolder } = await chrome.storage.local.get({ rootFolder: { subfolders: { default: { subfolders: {}, contents: {} } } } });
@@ -29,10 +41,9 @@ async function store(selection, container, url, href, pageTitle, id) {
     const selectedFolder = parseSubfolders(rootFolder, selectedFolderPath, false, true);
     const folderContent = selectedFolder.contents;
 
-    if (!highlights[url]) highlights[url] = [];
-    if (!folderContent[url]) folderContent[url] = { list: [], name: pageTitle };
-
     const currentTime = Date.now();
+    if (!highlights[url]) highlights[url] = [];
+    if (!folderContent[url]) folderContent[url] = { list: [], name: pageTitle, created: currentTime };
 
     const count = highlights[url].push({
         version: STORE_FORMAT_VERSION,
@@ -193,6 +204,7 @@ function escapeCSSString(cssString) {
 export {
     store,
     update,
+    updatePageOrder,
     loadAll,
     load,
     removeHighlight,

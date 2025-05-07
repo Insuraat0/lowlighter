@@ -22,6 +22,8 @@ function initMinilists(folderContent, colorOptions, highlights) {
         const pageObject = folderContent[pageName];
         const pageHighlights = highlights[pageName];
 
+        if (!pageHighlights?.length) continue;
+
         const minilistElement = document.createElementNS(XHTML, 'div');
         const headerElement = document.createElementNS(XHTML, 'div');
         const headerTopRowElement = document.createElementNS(XHTML, 'div');
@@ -32,6 +34,8 @@ function initMinilists(folderContent, colorOptions, highlights) {
         const countElement = document.createElementNS(XHTML, 'span');
 
         minilistElement.classList.add('minilist');
+        minilistElement.dataset.updated = pageObject.updated;
+        minilistElement.dataset.created = pageObject.created || pageObject.updated; // TODO: Remove or statment, all will have this
         minilistElement.appendChild(headerElement);
 
         headerElement.classList.add('header');
@@ -69,19 +73,21 @@ function initMinilists(folderContent, colorOptions, highlights) {
             colorCounter.add(colorId);
 
             const entryElement = document.createElementNS(XHTML, 'div');
-            const entryClasses = entryElement.classList;
             const noteElement = document.createElementNS(XHTML, 'div');
             const noteContentElement = document.createElementNS(XHTML, 'textarea');
 
             minilistElement.appendChild(entryElement);
 
-            entryClasses.add('entry');
+            entryElement.classList.add('entry');
+            entryElement.dataset.pageOrder = highlight.order;
+            entryElement.dataset.createOrder = highlightIndex;
+            entryElement.dataset.color = colorId.slice(-1);
             entryElement.style.borderColor = highlightColor.color;
             entryElement.innerText = highlight.string.trim();
             entryElement.appendChild(noteElement);
             entryElement.addEventListener('click', (event) => {
                 if (event.target != entryElement) { return }
-                entryClasses.toggle('expanded');
+                entryElement.classList.toggle('expanded');
             });
 
             noteElement.classList.add('note');
@@ -96,7 +102,9 @@ function initMinilists(folderContent, colorOptions, highlights) {
             });
         })
 
+        minilistElement.dataset.highlights = highlightCounter;
         countElement.innerText = `(${highlightCounter} highlights, ${colorCounter.size} colors)`;
+
         mainElement.appendChild(minilistElement);
     }
 }

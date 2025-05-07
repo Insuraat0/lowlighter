@@ -1,6 +1,6 @@
 import highlight from './highlight/index.js';
 
-import { store } from '../utils/storageManager.js';
+import { store, updatePageOrder } from '../utils/storageManager.js';
 
 async function create(color, selection = window.getSelection()) {
   const selectionString = selection.toString();
@@ -14,8 +14,10 @@ async function create(color, selection = window.getSelection()) {
     container = container.parentNode;
   }
 
-  const highlightIndex = await store(selection, container, location.hostname + location.pathname, location.href, document.title, color.id);
+  const url = location.hostname + location.pathname
+  const highlightIndex = await store(selection, container, url, location.href, document.title, color.id);
   highlight(selectionString, container, selection, color.id, color.color, color.textColor, highlightIndex);
+  updatePageOrder(url);
 }
 
 export default create;

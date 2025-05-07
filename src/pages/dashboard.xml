@@ -20,26 +20,27 @@
                                 <option>Page and date</option>
                                 <option>Website</option>
                                 <option>Website and date</option>
+                                <option>Do not separate</option>
                             </select>
                             <select id="sort-minilists-by">
-                                <option>Updated (new to old)</option>
-                                <option>Updated (old to new)</option>
-                                <option>Created (new to old)</option>
-                                <option>Created (old to new)</option>
-                                <option>Title (A to Z)</option>
-                                <option>Title (Z to A)</option>
-                                <option>URL (A to Z)</option>
-                                <option>URL (Z to A)</option>
-                                <option>Highlights (9 to 1)</option>
-                                <option>Highlights (1 to 9)</option>
+                                <option value="url">URL (A to Z)</option>
+                                <option value="url,1">URL (Z to A)</option>
+                                <option value="updated">Updated (old to new)</option>
+                                <option value="updated,1">Updated (new to old)</option>
+                                <option value="created">Created (old to new)</option>
+                                <option value="created,1">Created (new to old)</option>
+                                <option value="title">Title (A to Z)</option>
+                                <option value="title,1">Title (Z to A)</option>
+                                <option value="highlights,1">Highlights (9 to 1)</option>
+                                <option value="highlights">Highlights (1 to 9)</option>
                             </select>
                             <select id="sort-entries-by">
-                                <option>Original page (top to bottom)</option>
-                                <option>Original page (bottom to top)</option>
-                                <option>Creation (new to old)</option>
-                                <option>Creation (old to new)</option>
-                                <option>Alphabetical (A to Z)</option>
-                                <option>Alphabetical (Z to A)</option>
+                                <option value="createOrder">Creation (old to new)</option>
+                                <option value="createOrder,1">Creation (new to old)</option>
+                                <option value="pageOrder">Original page (top to bottom)</option>
+                                <option value="pageOrder,1">Original page (bottom to top)</option>
+                                <option value="textContent">Alphabetical (A to Z)</option>
+                                <option value="textContent,1">Alphabetical (Z to A)</option>
                             </select>
                         </div>
                         <div id="searchbar-row">
@@ -57,4 +58,5 @@
         </div>
     </body>
     <script src="dashboard.js"></script>
+    <script src="dashboard-sort.js"></script>
 </html>
