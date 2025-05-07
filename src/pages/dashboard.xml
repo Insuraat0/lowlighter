@@ -13,6 +13,43 @@
             <div id="scroll">
                 <div id="main">
                     <div id="sortmenu">
+                        <div id="minilist-sorting">
+                            <select id="separate-minilists-by">
+                                <option>Page</option>
+                                <option>Date updated</option>
+                                <option>Page and date</option>
+                                <option>Website</option>
+                                <option>Website and date</option>
+                            </select>
+                            <select id="sort-minilists-by">
+                                <option>Updated (new to old)</option>
+                                <option>Updated (old to new)</option>
+                                <option>Created (new to old)</option>
+                                <option>Created (old to new)</option>
+                                <option>Title (A to Z)</option>
+                                <option>Title (Z to A)</option>
+                                <option>URL (A to Z)</option>
+                                <option>URL (Z to A)</option>
+                                <option>Highlights (9 to 1)</option>
+                                <option>Highlights (1 to 9)</option>
+                            </select>
+                            <select id="sort-entries-by">
+                                <option>Original page (top to bottom)</option>
+                                <option>Original page (bottom to top)</option>
+                                <option>Creation (new to old)</option>
+                                <option>Creation (old to new)</option>
+                                <option>Alphabetical (A to Z)</option>
+                                <option>Alphabetical (Z to A)</option>
+                            </select>
+                        </div>
+                        <div id="searchbar-row">
+                            <div id="searchbar">
+                                <input type="text" />
+                            </div>
+                            <div id="search-button">Search</div>
+                            <div id="advanced-toggle">Advanced</div>
+                        </div>
+                        <div id="advanced-options" />
                         <div id="folderlist" />
                     </div>
                 </div>
