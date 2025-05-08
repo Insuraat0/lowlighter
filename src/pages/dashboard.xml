@@ -35,8 +35,8 @@
                                 <option value="highlights">Highlights (1 to 9)</option>
                             </select>
                             <select id="sort-entries-by">
-                                <option value="createOrder">Creation (old to new)</option>
-                                <option value="createOrder,1">Creation (new to old)</option>
+                                <option value="created">Creation (old to new)</option>
+                                <option value="created,1">Creation (new to old)</option>
                                 <option value="pageOrder">Original page (top to bottom)</option>
                                 <option value="pageOrder,1">Original page (bottom to top)</option>
                                 <option value="textContent">Alphabetical (A to Z)</option>

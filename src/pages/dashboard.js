@@ -80,7 +80,7 @@ function initMinilists(folderContent, colorOptions, highlights) {
 
             entryElement.classList.add('entry');
             entryElement.dataset.pageOrder = highlight.order;
-            entryElement.dataset.createOrder = highlightIndex;
+            entryElement.dataset.created = highlight.createdAt;
             entryElement.dataset.color = colorId.slice(-1);
             entryElement.style.borderColor = highlightColor.color;
             entryElement.innerText = highlight.string.trim();

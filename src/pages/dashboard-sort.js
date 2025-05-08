@@ -28,30 +28,30 @@ function basicSearch(text, searchHeader = false) {
 }
 
 function basicEntryAttributeSort(attribute, descending = false) {
+    function sortFunction(entry, next) {
+        if (descending) [entry, next] = [next, entry];
+        if (attribute == 'textContent') return entry.textContent.localeCompare(next.textContent);
+        return Number(entry.dataset[attribute]) - (Number(next.dataset[attribute]));
+    }
+
     document.querySelectorAll('.minilist').forEach((minilist) => {
         const minilistEntries = Array.from(minilist.children).splice(1);
-        minilistEntries.sort((entry, next) => {
-            if (descending) [entry, next] = [next, entry];
-            if (attribute == 'textContent') return entry.textContent.localeCompare(next.textContent);
-            return Number(entry.dataset[attribute]) - (Number(next.dataset[attribute]));
-        });
-
+        minilistEntries.sort(sortFunction);
         minilistEntries.forEach((minilistChild) => minilist.appendChild(minilistChild));
     });
 }
 
 function basicMinilistAttributeSort(attribute, descending = false) {
-    const minilists = Array.from(mainElement.children).splice(1);
-    minilists.sort((minilist, next) => {
+    function sortFunction(minilist, next) {
         if (descending) [minilist, next] = [next, minilist];
         if (attribute == 'title' || attribute == 'url') {
-            console.log(attribute)
             return minilist.querySelector(`.${attribute}`).textContent.localeCompare(next.querySelector(`.${attribute}`).textContent);
         }
-
         return Number(minilist.dataset[attribute]) - Number(next.dataset[attribute]);
-    });
+    }
 
+    const minilists = Array.from(mainElement.children).splice(1);
+    minilists.sort(sortFunction);
     minilists.forEach((minilist) => mainElement.appendChild(minilist));
 }
 
@@ -73,7 +73,7 @@ function initSorts() {
 initSorts();
 
 
-/* Perofmance test should not be included in release 
+/* Perofmance test should not be included in release
 function performanceTest() {
     for (var i = 0; i < 300; i++) {
         basicEntryAttributeSort('pageOrder', true);
@@ -85,5 +85,5 @@ function performanceTest() {
     }
 }
 
-document.getElementById('search-button').addEventListener('click', performanceTest); 
+document.getElementById('search-button').addEventListener('click', performanceTest);
 /**/
