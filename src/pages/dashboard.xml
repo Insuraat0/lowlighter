@@ -15,32 +15,32 @@
                     <div id="sortmenu">
                         <div id="minilist-sorting">
                             <select id="separate-minilists-by">
-                                <option>Page</option>
-                                <option>Date updated</option>
-                                <option>Page and date</option>
-                                <option>Website</option>
-                                <option>Website and date</option>
-                                <option>Do not separate</option>
+                                <option value="page">Page</option>
+                                <option value="date">Creation date</option>
+                                <option value="page-date">Page and date</option>
+                                <option value="site">Website</option>
+                                <option value="site-date">Website and date</option>
+                                <option value="none">Do not separate</option>
                             </select>
                             <select id="sort-minilists-by">
-                                <option value="url">URL (A to Z)</option>
-                                <option value="url,1">URL (Z to A)</option>
-                                <option value="updated">Updated (old to new)</option>
-                                <option value="updated,1">Updated (new to old)</option>
-                                <option value="created">Created (old to new)</option>
-                                <option value="created,1">Created (new to old)</option>
-                                <option value="title">Title (A to Z)</option>
-                                <option value="title,1">Title (Z to A)</option>
-                                <option value="highlights,1">Highlights (9 to 1)</option>
-                                <option value="highlights">Highlights (1 to 9)</option>
+                                <option id="ml-sort-url" value="url">URL (A to Z)</option>
+                                <option id="ml-sort-url1" value="url,1">URL (Z to A)</option>
+                                <option id="ml-sort-update" value="updated">Updated (old to new)</option>
+                                <option id="ml-sort-update1" value="updated,1">Updated (new to old)</option>
+                                <option id="ml-sort-create" value="created">Created (old to new)</option>
+                                <option id="ml-sort-create1" value="created,1">Created (new to old)</option>
+                                <option id="ml-sort-title" value="title">Title (A to Z)</option>
+                                <option id="ml-sort-title1" value="title,1">Title (Z to A)</option>
+                                <option id="ml-sort-count" value="highlights,1">Highlights (9 to 1)</option>
+                                <option id="ml-sort-count1" value="highlights">Highlights (1 to 9)</option>
                             </select>
                             <select id="sort-entries-by">
-                                <option value="created">Creation (old to new)</option>
-                                <option value="created,1">Creation (new to old)</option>
-                                <option value="pageOrder">Original page (top to bottom)</option>
-                                <option value="pageOrder,1">Original page (bottom to top)</option>
-                                <option value="textContent">Alphabetical (A to Z)</option>
-                                <option value="textContent,1">Alphabetical (Z to A)</option>
+                                <option id="en-sort-create" value="created">Creation (old to new)</option>
+                                <option id="en-sort-create1" value="created,1">Creation (new to old)</option>
+                                <option id="en-sort-page" value="pageOrder">Original page (top to bottom)</option>
+                                <option id="en-sort-page1" value="pageOrder,1">Original page (bottom to top)</option>
+                                <option id="en-sort-abc" value="textContent">Alphabetical (A to Z)</option>
+                                <option id="en-sort-abc1" value="textContent,1">Alphabetical (Z to A)</option>
                             </select>
                         </div>
                         <div id="searchbar-row">
@@ -57,6 +57,7 @@
             </div>
         </div>
     </body>
-    <script src="dashboard.js"></script>
-    <script src="dashboard-sort.js"></script>
+    <script src="generalSeparator.js" />
+    <script src="dashboard.js" />
+    <script src="dashboard-sort.js" />
 </html>

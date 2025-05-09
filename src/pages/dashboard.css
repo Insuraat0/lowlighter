@@ -157,6 +157,17 @@ body {
                             display: inline-block;
                             margin-right: 4px;
                         }
+
+                        span.url,
+                        span.count {
+                            &::before {
+                                content: '('
+                            }
+
+                            &::after {
+                                content: ')'
+                            }
+                        }
                     }
 
                     div.entry {

@@ -78,9 +78,12 @@ function initMinilists(folderContent, colorOptions, highlights) {
 
             minilistElement.appendChild(entryElement);
 
+            const siteArray = pageName.split('/');
             entryElement.classList.add('entry');
             entryElement.dataset.pageOrder = highlight.order;
             entryElement.dataset.created = highlight.createdAt;
+            entryElement.dataset.site = siteArray[0];
+            entryElement.dataset.page = '/' + siteArray.splice(1).join('/');
             entryElement.dataset.color = colorId.slice(-1);
             entryElement.style.borderColor = highlightColor.color;
             entryElement.innerText = highlight.string.trim();

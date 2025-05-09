@@ -6,12 +6,11 @@ const searchButton = document.getElementById('search-button');
 
 function basicSearch(text, searchHeader = false) {
     document.querySelectorAll('.minilist').forEach((minilist) => {
+        const ignoreChecks = (searchHeader && minilist.firstElementChild.textContent.includes(text));
         var showMinilist = false;
-        var ignoreChecks = false;
 
-        if (searchHeader && minilist.firstElementChild.textContent.includes(text)) ignoreChecks = true;
         minilist.querySelectorAll('.entry').forEach((entry) => {
-            if (ignoreChecks || entry.textContent.includes(text) || entry.querySelector('textarea').textContent.includes(text)) {
+            if (ignoreChecks || entry.textContent.includes(text) || entry.querySelector('textarea').value.includes(text)) {
                 entry.style.display = 'block';
                 showMinilist = true;
             } else {
@@ -55,7 +54,7 @@ function basicMinilistAttributeSort(attribute, descending = false) {
     minilists.forEach((minilist) => mainElement.appendChild(minilist));
 }
 
-function initSorts() {
+async function initSorts() {
     sortEntriesSelector.addEventListener('change', () => {
         const variables = sortEntriesSelector.value.split(',');
         basicEntryAttributeSort(variables[0], Boolean(variables[1]));
@@ -68,13 +67,23 @@ function initSorts() {
 
     searchBar.addEventListener('change', () => basicSearch(searchBar.value, true));
     searchButton.addEventListener('click', () => basicSearch(searchBar.value, true));
+
+    const { rootFolder } = await chrome.storage.local.get('rootFolder');
+    const { selectedFolderPath } = await chrome.storage.local.get({ selectedFolderPath: 'root.default' });
+    const selectedFolder = parseSubfolders(rootFolder, selectedFolderPath, true, false);
+
+    separateMinilistsSelector.addEventListener('change', () => {
+        const entryList = Array.from(document.querySelectorAll('.entry'));
+        divideIntoMinilists(entryList, separateMinilistsSelector.value, selectedFolder, true);
+    });
 }
 
 initSorts();
 
 
 /* Perofmance test should not be included in release
-function performanceTest() {
+function initPerformanceTest() {
+    const start = performance.now();
     for (var i = 0; i < 300; i++) {
         basicEntryAttributeSort('pageOrder', true);
         basicEntryAttributeSort('pageOrder', false);
@@ -83,7 +92,34 @@ function performanceTest() {
         basicEntryAttributeSort('createOrder', true);
         basicEntryAttributeSort('createOrder', false);
     }
+    const end = performance.now();
+    console.log(end - start);
 }
 
-document.getElementById('search-button').addEventListener('click', performanceTest);
+/**
+
+async function initPerformanceTest() {
+    const { rootFolder } = await chrome.storage.local.get('rootFolder');
+    const { selectedFolderPath } = await chrome.storage.local.get({ selectedFolderPath: 'root.default' });
+
+    const selectedFolder = parseSubfolders(rootFolder, selectedFolderPath, true, false);
+    const entryList = Array.from(document.querySelectorAll('.entry'));
+    newPerformanceTest(selectedFolder, entryList);
+}
+
+function newPerformanceTest(selectedFolder, entryList) {
+    const start = performance.now();
+    for (var i = 0; i < 150; i++) {
+        divideIntoMinilists(entryList, 'page', selectedFolder, true);
+        divideIntoMinilists(entryList, 'date', selectedFolder, true);
+        divideIntoMinilists(entryList, 'site', selectedFolder, true);
+        divideIntoMinilists(entryList, 'page-date', selectedFolder, true);
+        divideIntoMinilists(entryList, 'site-date', selectedFolder, true);
+    }
+    const end = performance.now();
+    console.log(end - start);
+}
+
+document.getElementById('search-button').addEventListener('click', initPerformanceTest);
+
 /**/
