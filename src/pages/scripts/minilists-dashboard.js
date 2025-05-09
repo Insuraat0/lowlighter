@@ -106,6 +106,8 @@ function divideIntoMinilists(entryList, divider, selectedFolder, clear = false) 
 
     const newMinilists = {};
     entryList.forEach((entry) => {
+        if (!entry) return;
+
         const entryData = entry.dataset;
         const key = getKey(entryData);
 

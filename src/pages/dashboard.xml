@@ -12,6 +12,7 @@
         <div id="center">
             <div id="scroll">
                 <div id="main">
+                    <div id="message">Loading...</div>
                     <div id="sortmenu">
                         <div id="minilist-sorting">
                             <select id="separate-minilists-by">
@@ -57,7 +58,8 @@
             </div>
         </div>
     </body>
-    <script src="scripts/general-separator.js" />
     <script src="scripts/dashboard.js" />
-    <script src="scripts/dashboard-sort.js" />
+    <script src="scripts/entries-dashboard.js" />
+    <script src="scripts/minilists-dashboard.js" />
+    <script src="scripts/sortmenu-dashboard.js" />
 </html>
