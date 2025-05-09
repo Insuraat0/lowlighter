@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Dashboard — Lowlighter</title>
-        <link rel="stylesheet" type="text/css" href="dashboard.css" />
-        <link rel="stylesheet" type="text/css" href="dashboard-light-noborder.css" />
+        <link rel="stylesheet" type="text/css" href="styles/dashboard.css" />
+        <link rel="stylesheet" type="text/css" href="styles/dashboard-light-noborder.css" />
     </head>
     <body>
         <div id="sidemenu" />
@@ -57,7 +57,7 @@
             </div>
         </div>
     </body>
-    <script src="generalSeparator.js" />
-    <script src="dashboard.js" />
-    <script src="dashboard-sort.js" />
+    <script src="scripts/general-separator.js" />
+    <script src="scripts/dashboard.js" />
+    <script src="scripts/dashboard-sort.js" />
 </html>

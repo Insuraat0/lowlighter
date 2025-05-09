@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Lowlighter</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="styles/popup.css" />
     </head>
     <body>
         <div id="tools-side">
@@ -50,5 +50,5 @@
             <div id="highlight-list-scroll" />
         </div>
     </body>
-    <script src="script.js" />
+    <script src="scripts/popup.js" />
 </html>
