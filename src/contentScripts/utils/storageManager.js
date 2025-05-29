@@ -34,7 +34,7 @@ async function updatePageOrder(url) {
     chrome.storage.local.set({ highlights });
 }
 
-async function store(selection, container, url, href, pageTitle, id) {
+async function store(selection, container, url, href, id, metadata) {
     const { highlights } = await chrome.storage.local.get({ highlights: {} });
     const { rootFolder } = await chrome.storage.local.get({ rootFolder: { subfolders: { default: { subfolders: {}, contents: {} } } } });
     const { selectedFolderPath } = await chrome.storage.local.get({ selectedFolderPath: 'root.default' });
@@ -43,7 +43,7 @@ async function store(selection, container, url, href, pageTitle, id) {
 
     const currentTime = Date.now();
     if (!highlights[url]) highlights[url] = [];
-    if (!folderContent[url]) folderContent[url] = { list: [], name: pageTitle, created: currentTime };
+    if (!folderContent[url]) folderContent[url] = { list: [], metadata };
 
     const count = highlights[url].push({
         version: STORE_FORMAT_VERSION,
@@ -61,7 +61,7 @@ async function store(selection, container, url, href, pageTitle, id) {
 
     const index = count - 1
     selectedFolder.updated = currentTime;
-    folderContent[url].updated = currentTime;
+    folderContent[url].metadata.accessed = currentTime;
     folderContent[url].list.push(index);
 
     chrome.storage.local.set({ highlights });

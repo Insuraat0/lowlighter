@@ -25,10 +25,10 @@ function createMinilist(divider, selectedFolder, key, altKey = null) {
     }
 
     if (divider == 'page') {
-        const pageName = selectedFolder.contents[key].name || 'No title';
+        const pageName = selectedFolder.contents[key].metadata.pageName || 'No title';
         titleElement.innerText = pageName;
     } else if (divider == 'page-date') {
-        const pageName = selectedFolder.contents[key].name || 'No title';
+        const pageName = selectedFolder.contents[key].metadata.pageName || 'No title';
         titleElement.innerText = altKey + ': ' + pageName;
     } else if (divider == 'site-date') {
         titleElement.innerText = altKey + ': ' + key;
