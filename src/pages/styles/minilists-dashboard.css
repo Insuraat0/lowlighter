@@ -1,0 +1,90 @@
+body div#center div#scroll div#main div.minilist {
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    border-radius: 4px;
+    background-color: var(--foreground-color);
+
+    div.header {
+        div.export {
+            margin: 0px 0px 8px 8px;
+            height: 16px;
+            width: 16px;
+
+            background-color: var(--background-color);
+            border-radius: 4px;
+
+            float: right;
+        }
+
+        span.title {
+            margin-right: 4px;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        span.date {
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        span.url,
+        span.count {
+            &::before {
+                content: '('
+            }
+
+            &::after {
+                content: ')'
+            }
+        }
+    }
+
+    div.entry {
+        padding: 8px;
+
+        cursor: pointer;
+
+        border-left: 8px solid;
+        border-radius: 4px;
+        background-color: var(--background-color);
+
+        &:hover {
+            background-color: var(--midground-color);
+        }
+
+        &.expanded {
+            background-color: var(--midground-color);
+
+            div.note {
+                display: block;
+            }
+        }
+
+        div.note {
+            margin-top: 8px;
+            padding: 8px;
+
+            display: none;
+            cursor: default;
+
+            border-radius: 4px;
+            background-color: var(--background-color);
+
+            textarea {
+                all: unset;
+                width: -webkit-fill-available;
+
+                cursor: text;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+        }
+    }
+}

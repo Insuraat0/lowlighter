@@ -6,6 +6,13 @@ function createMinilist(divider, selectedFolder, key, altKey = null) {
     minilistElement.appendChild(headerElement);
     headerElement.classList.add('header');
 
+    const exportButton = document.createElementNS(XHTML, 'div');
+    headerElement.appendChild(exportButton);
+    exportButton.classList.add('export');
+    exportButton.addEventListener('click', () => {
+        openPopupExportCSV(minilistElement);
+    });
+
     const headerTopRowElement = document.createElementNS(XHTML, 'div');
     headerElement.appendChild(headerTopRowElement);
     headerTopRowElement.classList.add('header-top-row');

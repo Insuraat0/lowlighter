@@ -1,26 +1,19 @@
-body div#center div#scroll {
-    &::-webkit-scrollbar-thumb {
-        background-color: #dddddd;
-    }
+:root {
+    --background-color: #eeeeee;
+    --mid-back-color: #000000;
+    --midground-color: #d8d8d8;
+    --mid-front-color: #000000;
+    --foreground-color: #d8d8d8;
+    --cover-color: rgba(0, 0, 0, 0.5);
+}
 
-    div#main div.minilist {
-        background-color: #dddddd;
+body div#center div#scroll div#main div.minilist div.entry {
 
-        div.entry {
-            background-color: #eeeeee;
+    &.expanded,
+    &:hover {
+        margin: -2px 0px;
 
-            &.expanded,
-            &:hover {
-                margin: -2px 0px;
-
-                background-color: #dddddd;
-                border: 2px solid;
-                border-left: 8px solid;
-            }
-
-            div.note {
-                background-color: #eeeeee;
-            }
-        }
+        border: 2px solid;
+        border-left: 8px solid;
     }
 }

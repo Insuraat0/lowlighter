@@ -1,0 +1,90 @@
+body div#center div#scroll div#main div#sortmenu {
+    padding: 8px;
+
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+
+    background-color: var(--foreground-color);
+    border-radius: 4px;
+
+    div#minilist-sorting {
+        display: flex;
+        gap: 8px;
+
+        select {
+            all: unset;
+            padding: 8px;
+
+            flex: 1;
+
+            text-align: center;
+
+            background-color: var(--background-color);
+            border-radius: 4px;
+
+            cursor: pointer;
+        }
+    }
+
+    div#searchbar-row {
+        display: flex;
+        gap: 8px;
+
+        div#searchbar {
+            padding: 8px;
+
+            background-color: var(--background-color);
+            border-radius: 4px;
+
+            flex: 3;
+
+            input {
+                all: unset;
+                width: -webkit-fill-available;
+            }
+        }
+
+        div#search-button,
+        div#advanced-toggle {
+            padding: 8px;
+
+            flex: 1;
+
+            text-align: center;
+
+            background-color: var(--background-color);
+            border-radius: 4px;
+
+            cursor: pointer;
+        }
+    }
+
+    div#advanced-options {
+        display: none;
+    }
+
+    div#folderlist {
+        padding: 8px;
+
+        background-color: var(--background-color);
+        border-radius: 4px;
+
+        div.folder {
+            margin-bottom: -8px;
+
+            div.content {
+                padding: 8px;
+
+                background-color: var(--foreground-color);
+                border-radius: 4px;
+
+                text-transform: capitalize;
+            }
+
+            div.folder {
+                margin: 8px 0px 8px 32px;
+            }
+        }
+    }
+}

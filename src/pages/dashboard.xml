@@ -5,6 +5,9 @@
     <head>
         <title>Dashboard — Lowlighter</title>
         <link rel="stylesheet" type="text/css" href="styles/dashboard.css" />
+        <link rel="stylesheet" type="text/css" href="styles/sortmenu-dashboard.css" />
+        <link rel="stylesheet" type="text/css" href="styles/minilists-dashboard.css" />
+        <link rel="stylesheet" type="text/css" href="styles/popup-dashboard.css" />
         <link rel="stylesheet" type="text/css" href="styles/dashboard-light-noborder.css" />
     </head>
     <body>
@@ -57,8 +60,12 @@
                 </div>
             </div>
         </div>
+        <div id="cover">
+            <div id="export-menu" />
+        </div>
     </body>
     <script src="scripts/dashboard.js" />
+    <script src="scripts/popup-dashboard.js" />
     <script src="scripts/entries-dashboard.js" />
     <script src="scripts/minilists-dashboard.js" />
     <script src="scripts/sortmenu-dashboard.js" />

@@ -3,6 +3,7 @@ const XHTML = 'http://www.w3.org/1999/xhtml';
 const mainElement = document.getElementById('main');
 const sortMenu = document.getElementById('sortmenu');
 const messageElement = document.getElementById('message');
+const coverElement = document.getElementById('cover');
 
 const separateMinilistsSelector = document.getElementById('separate-minilists-by');
 const sortMinilistsSelector = document.getElementById('sort-minilists-by');
